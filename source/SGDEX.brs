@@ -1,5 +1,5 @@
 ' Copyright (c) 2018 Roku, Inc. All rights reserved.
-
+' Used as-is to utilise SGDEX components
 sub RunUserInterface(args)
     m.args = args
     if Type(GetSceneName) <> "<uninitialized>" AND GetSceneName <> invalid AND GetInterface(GetSceneName, "ifFunction") <> invalid then
