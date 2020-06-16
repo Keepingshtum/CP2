@@ -4,6 +4,9 @@ sub OpenVideoView(content as Object, index as Integer)
     video = CreateObject("roSGNode", "MediaView")
     video.content = content
     video.jumpToItem = index
+    video.theme = {
+        OverhangVisible : "false"
+    }
     m.top.ComponentController.CallFunc("show", {
         view: video
     })

@@ -10,6 +10,9 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     m.top.ComponentController.CallFunc("show", {
         view: details
     })
+    details.theme = {
+    OverhangoptionsText: "Search and Options"
+    }
     return details
 end function
 'Handle User Interaction on Springboard

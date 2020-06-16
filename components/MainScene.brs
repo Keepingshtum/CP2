@@ -8,8 +8,7 @@ sub Show(args as Object)
         posterShape: "16x9"
     })
     m.grid.theme = {
-        OverhangVisible : "true"
-        logoUri: "pkg:/images/icon_focus_hd.png" 
+        OverhangoptionsText: "Search and Options"
     }
     ' This is root content that describes how to populate rest of rows
     content = CreateObject("roSGNode", "ContentNode")
