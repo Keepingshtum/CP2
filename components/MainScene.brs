@@ -32,3 +32,10 @@ sub OnGridItemSelected(event as Object)
     row = grid.content.GetChild(selectedIndex[0])
     detailsView = ShowDetailsView(row, selectedIndex[1])
 end sub
+
+function onKeyEvent(key, press) as Boolean
+	if key = "options" and press
+    ?"yay"
+    OpenSearch()
+    end if
+end function
