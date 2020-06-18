@@ -6,6 +6,10 @@ sub OpenVideoView(content as Object, index as Integer)
     video.jumpToItem = index
     video.theme = {
         OverhangVisible : "false"
+        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.png"
+        bufferingBarFilledBarImageUri : "pkg:/images/bar.png"
+        bufferingBarEmptyBarImageUri : "pkg:/images/bar.png"
+        bufferingBarTrackImageUri : "pkg:/images/bar.png"
     }
     m.top.ComponentController.CallFunc("show", {
         view: video
