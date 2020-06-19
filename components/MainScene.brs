@@ -35,7 +35,6 @@ end sub
 
 function onKeyEvent(key, press) as Boolean
 	if key = "options" and press
-    ?"yay"
     OpenSearch()
     end if
 end function

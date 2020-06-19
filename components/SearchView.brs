@@ -29,6 +29,10 @@ sub OnSearchQuery(event as Object)
     searchView.content = content
 end sub
 
+'Function to call details view from search
 sub OnSearchItemSelected(event as Object)
-    ? "Item selected = " ; event.GetData()
+    grid = event.GetRoSGNode()
+    selectedIndex = event.GetData()
+    row = grid.content.GetChild(selectedIndex[0])
+    detailsView = ShowDetailsView(row, selectedIndex[1])
 end sub
