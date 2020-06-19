@@ -25,7 +25,7 @@ sub GetContent()
             if itemAA <> invalid
                 for each xmlItem in itemAA
                         item = {}
-                        if xmlItem.GetName() = "media:content" and Instr(1,xmlItem.GetText(),m.top.query) <> 0 'check if query is a substring of title
+                        if xmlItem.GetName() = "media:content" and Instr(1,xmlItem.GetNamedElements("media:title").GetText(),m.top.query) <> 0 'check if query is a substring of title
                             item.url = xmlItem.GetAttributes().url
                             xmlTitle = xmlItem.GetNamedElements("media:title")
                             item.title = xmlTitle.GetText()
