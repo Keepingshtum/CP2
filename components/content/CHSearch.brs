@@ -20,30 +20,30 @@ sub GetContent()
 'Parse Feed Data and make sure it displays properly
     for each xmlItem in responseArray
         print "xmItem Name: " + xmlItem.GetName()
-        if xmlItem.GetName() = "item"
+        if xmlItem.GetName() = "item"'  
             itemAA = xmlItem.GetChildElements() 'itemAA contains a single feed <item> element
             if itemAA <> invalid
                 for each xmlItem in itemAA
-                    item = {}
-                    if xmlItem.GetName() = "media:content"
-                        item.url = xmlItem.GetAttributes().url
-                        xmlTitle = xmlItem.GetNamedElements("media:title")
-                        item.title = xmlTitle.GetText()
-                        xmlDescription = xmlItem.GetNamedElements("media:description")
-                        item.description = xmlDescription.GetText()
-                        item.streamFormat = "mp4"
-                        xmlThumbnail = xmlItem.GetNamedElements("media:thumbnail")
-                        item.HDPosterUrl = xmlThumbnail.GetAttributes().url
-                        itemNode = CreateObject("roSGNode", "ContentNode")
-                        itemNode.SetFields(item)
+                        item = {}
+                        if xmlItem.GetName() = "media:content" and Instr(1,xmlItem.GetText(),m.top.query) <> 0 'check if query is a substring of title
+                            item.url = xmlItem.GetAttributes().url
+                            xmlTitle = xmlItem.GetNamedElements("media:title")
+                            item.title = xmlTitle.GetText()
+                            xmlDescription = xmlItem.GetNamedElements("media:description")
+                            item.description = xmlDescription.GetText()
+                            item.streamFormat = "mp4"
+                            xmlThumbnail = xmlItem.GetNamedElements("media:thumbnail")
+                            item.HDPosterUrl = xmlThumbnail.GetAttributes().url
+                            itemNode = CreateObject("roSGNode", "ContentNode")
+                            itemNode.SetFields(item)
 
-                        itemNode.AddFields({
-                            handlerConfigRAF: {
-                                name: "HandlerRAF"
-                            }
-                        })
+                            itemNode.AddFields({
+                                handlerConfigRAF: {
+                                    name: "HandlerRAF"
+                                }
+                            })
 
-                        rowAA.children.Push(itemNode)
+                            rowAA.children.Push(itemNode)
                     end if
                 end for
             end if
