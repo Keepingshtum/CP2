@@ -9,6 +9,9 @@ sub Show(args as Object)
     })
     m.grid.theme = {
         OverhangoptionsText: "Search and Options"
+        global: {
+            progressBarColor : "FFFFFFFF"
+        }
     }
     ' This is root content that describes how to populate rest of rows
     content = CreateObject("roSGNode", "ContentNode")
@@ -25,6 +28,7 @@ sub Show(args as Object)
     })
     m.top.signalBeacon("AppLaunchComplete")
 end sub
+
 'Focus Handling
 sub OnGridItemSelected(event as Object)
     grid = event.GetRoSGNode()

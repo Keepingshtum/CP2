@@ -1,15 +1,15 @@
-' ********** Copyright 2019 Roku Corp.  All Rights Reserved. **********
-' Video Player logic - Edit here for progress bar? (wip)
+
+' Video Player logic 
 sub OpenVideoView(content as Object, index as Integer)
     video = CreateObject("roSGNode", "MediaView")
     video.content = content
     video.jumpToItem = index
     video.theme = {
         OverhangVisible : "false"
-        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.png"
-        bufferingBarFilledBarImageUri : "pkg:/images/bar.png"
-        bufferingBarEmptyBarImageUri : "pkg:/images/bar.png"
-        bufferingBarTrackImageUri : "pkg:/images/bar.png"
+        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
+        bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
     }
     m.top.ComponentController.CallFunc("show", {
         view: video
