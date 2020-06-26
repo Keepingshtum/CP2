@@ -1,78 +1,148 @@
 'Script for Populating Feed
 'Get feed data via roUrlTransfer
+
 sub GetContent()
-    url = CreateObject("roUrlTransfer")
-    url.SetUrl("http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss")
-    rsp = url.GetToString()
+    ' Get the feed from a url
+    ' url = CreateObject("roUrlTransfer")
+    ' url.SetUrl("https://fremicro029.xirvik.com/downloads/server/roku_lessons/comedy.json")
+    ' url.SetCertificatesFile("common:/certs/ca-bundle.crt")
+    ' url.AddHeader("Authorization", "Basic YW5hbnQ6c2FlN3V1YjNBaQ==")
+    ' url.InitClientCertificates()
+    ' feed = url.GetToString()
+    'this is for a sample, usually feed is retrieved from url using roUrlTransfer
+    'feed = ReadAsciiFile("pkg:/feed/feed.json")
+    'Sleep(2000) ' to emulate API call
 
-    responseXML = ParseXML(rsp)
-    responseXML = responseXML.GetChildElements()
-    responseArray = responseXML.GetChildElements()
-    rootChildren = {
-       children: []
-    }
-    rowAA = {
-        children: []
-    }
-
-    itemCount = 0
-    rowCount = 0
-'Parse Feed Data and make sure it displays properly
-    for each xmlItem in responseArray
-        print "xmItem Name: " + xmlItem.GetName()
-        if xmlItem.GetName() = "item"'  
-            itemAA = xmlItem.GetChildElements() 'itemAA contains a single feed <item> element
-            if itemAA <> invalid
-                for each xmlItem in itemAA
-                        item = {}
-                        if xmlItem.GetName() = "media:content" and Instr(1,xmlItem.GetNamedElements("media:title").GetText(),m.top.query) <> 0 'check if query is a substring of title
-                            item.url = xmlItem.GetAttributes().url
-                            xmlTitle = xmlItem.GetNamedElements("media:title")
-                            item.title = xmlTitle.GetText()
-                            xmlDescription = xmlItem.GetNamedElements("media:description")
-                            item.description = xmlDescription.GetText()
-                            item.streamFormat = "mp4"
-                            xmlThumbnail = xmlItem.GetNamedElements("media:thumbnail")
-                            item.HDPosterUrl = xmlThumbnail.GetAttributes().url
-                            itemNode = CreateObject("roSGNode", "ContentNode")
-                            itemNode.SetFields(item)
-
-                            itemNode.AddFields({
-                                handlerConfigRAF: {
-                                    name: "HandlerRAF"
-                                }
-                            })
-
-                            rowAA.children.Push(itemNode)
-                    end if
-                end for
-            end if
-            itemCount++
-            if (itemCount = 4)
-                print "Creating a new row"
-                itemCount = 0
-                rowCount++
-                rowAA.Append({ title: "Row " + stri(rowCount) })
-                rootChildren.children.Push(rowAA)
-                rowAA = {
-                    children: []
-                }
-            end if
+    port = CreateObject("roMessagePort")
+    request = CreateObject("roUrlTransfer")
+    request.SetMessagePort(port)
+    request.SetCertificatesFile("common:/certs/ca-bundle.crt")
+    request.RetainBodyOnError(true)
+    request.AddHeader("Authorization", "Basic YW5hbnQ6c2FlN3V1YjNBaQ==")
+    request.SetRequest("GET")
+    request.SetUrl("https://fremicro029.xirvik.com/downloads/server/feed.json")
+    requestSent = request.AsyncGetToString()
+    if (requestSent)
+        msg = wait(0, port)
+        if (type(msg) = "roUrlEvent")
+            statusCode = msg.GetResponseCode()
+            headers = msg.GetResponseHeaders()
+            etag = headers["Etag"]
+            body = msg.GetString()
+            json = ParseJson(body)
         end if
-    end for
-
-    'Insert the last incomplete row if children array is not empty
-    if (rowAA.children.Count() > 0)
-        rowCount++
-        rowAA.Append({ title: "Row " + stri(rowCount) })
-        rootChildren.children.Push(rowAA)
     end if
-    m.top.content.Update(rootChildren)
+    
+
+    rootNodeArray = ParseJsonToNodeArray(json)
+    m.top.content.Update(rootNodeArray)
 end sub
 
-function ParseXML(str As String) As dynamic
-    if str = invalid return invalid
-    xml = CreateObject("roXMLElement")
-    if not xml.Parse(str) return invalid
-    return xml
+function ParseJsonToNodeArray(jsonAA as Object) as Object
+    videolist = "movies series"
+    if jsonAA = invalid then return []
+    resultNodeArray = {
+       children: []
+    }
+
+    for each fieldInJsonAA in jsonAA
+        ' Assigning fields that apply to both movies and series
+        if Instr(1, videolist, fieldInJsonAA) <> 0
+            mediaItemsArray = jsonAA[fieldInJsonAA]
+            itemsNodeArray = []
+            for each mediaItem in mediaItemsArray
+                itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
+                if Instr(1,itemNode.title,m.top.query) <> 0
+                itemsNodeArray.Push(itemNode)
+                end if
+            end for
+            rowAA = {
+               title: fieldInJsonAA
+               children: itemsNodeArray
+            }
+
+           resultNodeArray.children.Push(rowAA)
+       end if
+    end for
+
+    return resultNodeArray
+end function
+
+function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Object
+    itemNode = Utils_AAToContentNode({
+            "id": mediaItem.id
+            "title": mediaItem.title
+            "hdPosterUrl": mediaItem.thumbnail
+            "Description": mediaItem.shortDescription
+            "Categories": mediaItem.genres
+        })
+
+    if mediaItem = invalid then
+        return itemNode
+    end if
+
+    ' Assign movie specific fields
+    if mediaType = "movies"
+        Utils_forceSetFields(itemNode, {
+                "Url": GetVideoUrl(mediaItem)
+                HandlerConfigEndcard: { ' this is for endcards, see Endcard sample
+                    name: "EndcardHandler"
+                    fields: {
+                        param: "Endcard"
+                        currentItemContent: { ' some info can be passed via fields to endcard handler
+                            "id": mediaItem.id
+                        }
+                    }
+                }
+            })
+    end if
+
+    ' Assign series specific fields
+    if mediaType = "series"
+        seasons = mediaItem.seasons
+        seasonArray = []
+        for each season in seasons
+            episodeArray = []
+            episodes = season.Lookup("episodes")
+            for each episode in episodes
+                episodeNode = Utils_AAToContentNode(episode)
+                Utils_forceSetFields(episodeNode, {
+                    "url": GetVideoUrl(episode)
+                    "title": episode.title
+                    "hdPosterUrl": episode.thumbnail
+                    "Description": episode.shortDescription
+                })
+                episodeArray.Push(episodeNode)
+            end for
+            seasonArray.Push(episodeArray)
+        end for
+        Utils_forceSetFields(itemNode, {
+                "seasons": seasonArray
+            })
+    end if
+    return itemNode
+end function
+
+function GetVideoUrl(mediaItem as Object) as String
+    content = mediaItem.Lookup("content")
+    if content = invalid then
+        return ""
+    end if
+
+    videos = content.Lookup("videos")
+    if videos = invalid then
+        return ""
+    end if
+
+    entry = videos.GetEntry(0)
+    if entry = invalid then
+        return ""
+    end if
+
+    url = entry.Lookup("url")
+    if url = invalid then
+        return ""
+    end if
+
+    return url
 end function

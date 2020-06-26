@@ -4,6 +4,9 @@ sub OpenSearch()
     ' query field will be changed each time user has typed something
     searchView.ObserveFieldScoped("query", "OnSearchQuery")
     searchView.ObserveFieldScoped("rowItemSelected", "OnSearchItemSelected")
+    searchView.theme = {
+        OverhangoptionsText: "Toggle caps lock"
+    }
 
     ' this will trigger job to show this screen
     m.top.ComponentController.CallFunc("show", {

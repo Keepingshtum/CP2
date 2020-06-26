@@ -3,4 +3,5 @@
 
 <component name="CHSearch" extends="ContentHandler" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
     <script type="text/brightscript" uri="CHSearch.brs" />
+    <script type="text/brightscript" uri="../../source/rsg_utils.brs" />
 </component>
