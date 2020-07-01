@@ -1,5 +1,5 @@
 
-' Video Player logic 
+' Video Player logic- For use if you choose not to use prebuffering for backwards compatibiiity 
 sub OpenVideoView(content as Object, index as Integer)
     video = CreateObject("roSGNode", "MediaView")
     video.content = content
