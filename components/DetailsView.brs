@@ -47,6 +47,13 @@ sub OnDetailsItemLoaded()
     ' we'll use this observer to print the state of the MediaView to the console
     ' this let's us see when prebuffering starts
     m.video.ObserveField("state", "OnVideoState")
+    m.video.theme = {
+        OverhangVisible : "false"
+        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
+        bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
+    }
 
     ' preloading also works while endcards are displayed
     m.video.alwaysShowEndcards = true
