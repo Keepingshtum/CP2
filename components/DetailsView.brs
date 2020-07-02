@@ -17,7 +17,7 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     return m.details
 end function
 
-'Handle User Interaction on Springboard
+'Handle buttons creation
 sub OnDetailsContentSet(event as Object)
     details = event.GetRoSGNode()
     currentItem = event.GetData()
@@ -65,7 +65,7 @@ sub OnDetailsItemLoaded()
     ' it's off by default for backward compatibility
     m.video.preloadContent = true
 end sub
-
+'Handle User Interaction
 sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())

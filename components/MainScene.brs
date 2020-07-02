@@ -26,7 +26,7 @@ sub Show(args as Object)
     m.top.ComponentController.CallFunc("show", {
         view: m.grid
     })
-    m.top.signalBeacon("AppLaunchComplete")
+    m.top.signalBeacon("AppLaunchComplete") ' Do this for app certification reasons
 end sub
 
 'Focus Handling
