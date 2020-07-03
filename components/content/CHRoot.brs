@@ -2,16 +2,29 @@
 'Get feed data via roUrlTransfer
 
 sub GetContent()
-    ' Get the feed from a url
-    ' url = CreateObject("roUrlTransfer")
-    ' url.SetUrl("https://fremicro029.xirvik.com/downloads/server/roku_lessons/comedy.json")
-    ' url.SetCertificatesFile("common:/certs/ca-bundle.crt")
-    ' url.AddHeader("Authorization", "Basic YW5hbnQ6c2FlN3V1YjNBaQ==")
-    ' url.InitClientCertificates()
-    ' feed = url.GetToString()
-    'this is for a sample, usually feed is retrieved from url using roUrlTransfer
-    'feed = ReadAsciiFile("pkg:/feed/feed.json")
-    'Sleep(2000) ' to emulate API call
+
+    ' Will need to check if user is Auth'd with the channel to fetch recommendations. Will come back once Activation is done (towards end of eval one)
+    ' Something like if (userauthtoken <> invalid) then fetch recommendation. else fetch default feed
+    'port = CreateObject("roMessagePort")
+    'request = CreateObject("roUrlTransfer")
+    'request.SetMessagePort(port)
+    'request.SetCertificatesFile("common:/certs/ca-bundle.crt")
+    'request.RetainBodyOnError(true)
+    'request.AddHeader ("Authorization", "YOUR UNIQUE ACCESS TOKEN HERE") ' Depends on the backend what the auth token is, but this is general format
+    'request.AddHeader("Authorization", "Basic YW5hbnQ6c2FlN3V1YjNBaQ==") ' How I can access from seedbox
+    'request.SetRequest("GET")
+    'request.SetUrl("https://fremicro029.xirvik.com/downloads/server/feed_recco.json")
+    'requestSent = request.AsyncGetToString()
+    'if (requestSent)
+    '    msg = wait(0, port)
+    '    if (type(msg) = "roUrlEvent")
+    '        statusCode = msg.GetResponseCode()
+    '        headers = msg.GetResponseHeaders()
+    '        etag = headers["Etag"]
+    '        body = msg.GetString()
+    '        json = ParseJson(body)
+    '    end if
+    'end if
 
     port = CreateObject("roMessagePort")
     request = CreateObject("roUrlTransfer")
@@ -39,7 +52,7 @@ sub GetContent()
 end sub
 
 function ParseJsonToNodeArray(jsonAA as Object) as Object
-    videolist = "movies series"
+    videolist = "movies series For You" ' Add fields here to add playlists
     if jsonAA = invalid then return []
     resultNodeArray = {
        children: []
@@ -80,7 +93,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
     end if
 
     ' Assign movie specific fields
-    if mediaType = "movies"
+    if mediaType = "movies" 'modify here if you add short form videos (Note: endcard handler currently breaks for recommended playlist)
         Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
                 HandlerConfigEndcard: { ' this is for endcards, see Endcard sample
@@ -94,6 +107,13 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                 }
             })
     end if
+
+    if mediaType = "For You" 'For recommended playlist- consider unifying for all video types
+    Utils_forceSetFields(itemNode, {
+                "Url": GetVideoUrl(mediaItem)
+            })
+    end if
+
 
     ' Assign series specific fields
     if mediaType = "series"
