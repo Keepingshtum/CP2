@@ -25,23 +25,28 @@ sub OnDetailsContentSet(event as Object)
         buttonsToCreate = []
 
         if currentItem.url <> invalid and currentItem.url <> ""
-            buttonsToCreate.Push({ title: "Play", id: "play" })
+            ?"Refresh buttons called from OnDetailsContentSet"
+            RefreshButtons(details) 'Make play available by default, add a Play again if bookmarks are present
         else if details.content.TITLE = "series"
             buttonsToCreate.Push({ title: "Episodes", id: "episodes" })
-        end if
-
-        if buttonsToCreate.Count() = 0
+            btnsContent = CreateObject("roSGNode", "ContentNode")
+            btnsContent.Update({ children: buttonsToCreate })
+            details.buttons = btnsContent
+        else
             buttonsToCreate.Push({ title: "No Content to play", id: "no_content" })
+            btnsContent = CreateObject("roSGNode", "ContentNode")
+            btnsContent.Update({ children: buttonsToCreate })
+            details.buttons = btnsContent
         end if
-        btnsContent = CreateObject("roSGNode", "ContentNode")
-        btnsContent.Update({ children: buttonsToCreate })
+        
     end if
-    details.buttons = btnsContent
+
 end sub
 'comment out if not using prebuffering
 sub OnDetailsItemLoaded()
     ' create a media view so we can start preloading content
     ' we won't show this view until the user selects the "Play" button on the DetailsView
+    AddBookmarksHandler(m.details.content)
     m.video = CreateObject("roSGNode", "MediaView")
     m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
     ' we'll use this observer to print the state of the MediaView to the console
@@ -69,13 +74,24 @@ end sub
 sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
+    item = details.content.GetChild(details.itemFocused)
 
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
+        item.bookmarkPosition = 0 ' Reset bookmark
+        m.video.ObserveField("wasClosed", "OnVideoWasClosed")
         m.video.control = "play"
-        m.top.ComponentController.CallFunc("show", {
+        m.top.ComponentController.CallFunc("show", { 'Since we have already made the video view, all we need to do is show it
         view: m.video
     })
+    else if selectedButton.id = "continue" 
+         'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
+        'don't reset if continuing
+        m.video.ObserveField("wasClosed", "OnVideoWasClosed")
+        m.video.control = "play"
+        m.top.ComponentController.CallFunc("show", { 'Since we have already made the video view, all we need to do is show it
+        view: m.video
+    })    
     else if selectedButton.id = "episodes"
         if details.currentItem.seasons <> invalid then
             ShowEpisodePickerView(details.currentItem.seasons)
@@ -88,8 +104,40 @@ end sub
 sub OnVideoState(event)
   ? "OnVideoState " + m.video.state
 end sub
-'comment this out if not using prebuffering
+
 sub OnVideoWasClosed()
     m.video = invalid ' clear played video node
-    OnDetailsItemLoaded() ' start buffering new one
+    OnDetailsItemLoaded() ' start buffering new one (this is how you play though a whole playlist)
+    RefreshButtons(m.details)
+end sub
+
+
+' function for refreshing buttons on details View
+' it will check whether item has bookmark and show correct buttons
+sub RefreshButtons(details as Object)
+    item = details.content.GetChild(details.itemFocused)
+    ' play button is always available
+    buttons = [{ title: "Play", id: "play" }]
+    ' continue button available only when this item has bookmark
+    if item.bookmarkPosition > 0 then buttons.Push({ title: "Continue", id: "continue" })
+    btnsContent = CreateObject("roSGNode", "ContentNode")
+    btnsContent.Update({ children: buttons })
+    ' set buttons
+    details.buttons = btnsContent
+end sub
+
+'Adding bookmark handler to video
+sub AddBookmarksHandler(contentItem as Object, index = invalid as Object)
+    if index <> invalid then contentItem = contentItem.GetChild(index)
+    if contentItem = invalid then return
+    contentItem.AddFields({
+            HandlerConfigBookmarks: {
+            name: "RegistryBookmarksHandler"
+            fields: {
+                minBookmark: 10
+                maxBookmark: 10
+                interval : 10 ' bookmark saving interface
+            }
+        }
+    })
 end sub

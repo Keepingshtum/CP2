@@ -86,6 +86,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "hdPosterUrl": mediaItem.thumbnail
             "Description": mediaItem.shortDescription
             "Categories": mediaItem.genres
+            "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
         })
 
     if mediaItem = invalid then
@@ -129,6 +130,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                     "title": episode.title
                     "hdPosterUrl": episode.thumbnail
                     "Description": episode.shortDescription
+                    "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
                 })
                 episodeArray.Push(episodeNode)
             end for
