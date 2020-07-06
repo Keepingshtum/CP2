@@ -3,7 +3,7 @@
 
 sub GetContent()
 
-    ' Will need to check if user is Auth'd with the channel to fetch recommendations. Will come back once Activation is done (towards end of eval one)
+    ' Will need to check if user is Auth'd with the channel to fetch recommendations. Will come back once Activation is done (towards end of eval two)
     ' Something like if (userauthtoken <> invalid) then fetch recommendation. else fetch default feed
     'port = CreateObject("roMessagePort")
     'request = CreateObject("roUrlTransfer")
