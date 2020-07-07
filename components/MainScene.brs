@@ -10,7 +10,7 @@ sub Show(args as Object)
     m.grid.theme = {
         OverhangoptionsText: "Search and Options"
         global: {
-            progressBarColor : "FFFFFFFF" 'Doesn't seem to work...
+           
         }
     }
     ' This is root content that describes how to populate rest of rows

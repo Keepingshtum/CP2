@@ -3,6 +3,9 @@
 sub OpenVideoView(content as Object, index as Integer)
     AddBookmarksHandler(content, index) 'Haven't tested if this way works- TODO for later
     video = CreateObject("roSGNode", "MediaView")
+    httpAgent = CreateObject("roHttpAgent")
+    httpAgent.HttpHeaders= "Authorization:Basic YW5hbnQ6c2FlN3V1YjNBaQ=="
+    video.setHttpAgent(httpAgent)
     video.content = content
     video.jumpToItem = index
     video.theme = {

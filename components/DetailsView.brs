@@ -48,10 +48,14 @@ sub OnDetailsItemLoaded()
     ' we won't show this view until the user selects the "Play" button on the DetailsView
     AddBookmarksHandler(m.details.content)
     m.video = CreateObject("roSGNode", "MediaView")
+    httpAgent = CreateObject("roHttpAgent")
+    m.video.HttpHeaders = "Authorization:Basic YW5hbnQ6c2FlN3V1YjNBaQ=="
+    m.video.setHttpAgent(httpAgent)
     m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
     ' we'll use this observer to print the state of the MediaView to the console
     ' this let's us see when prebuffering starts
     m.video.ObserveField("state", "OnVideoState")
+    m.video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
     m.video.theme = {
         OverhangVisible : "false"
         trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
@@ -140,4 +144,17 @@ sub AddBookmarksHandler(contentItem as Object, index = invalid as Object)
             }
         }
     })
+end sub
+
+sub OnEndcardItemSelected(event as Object)
+    item = event.GetData()
+    video = event.GetRoSGNode()
+    video.UnobserveField("endcardItemSelected")
+    video.close = true
+
+    if item.url <> invalid
+        video = OpenVideoPlayerItem(item)
+        video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
+    end if
+    ' ? "OnEndcardItemSelected item == "; item
 end sub
