@@ -153,7 +153,6 @@ sub OnEndcardItemSelected(event as Object)
     video.close = true
 
     if item.url <> invalid
-        video = OpenVideoPlayerItem(item)
         video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
     end if
     ' ? "OnEndcardItemSelected item == "; item
