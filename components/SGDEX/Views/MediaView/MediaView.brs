@@ -178,7 +178,10 @@ sub CreateMediaNode()
     m.isBookmarkHandlerCreated = false
     mode = m.top.mode
     if mode = "video"
+        'httpAgent = CreateObject("roHttpAgent")
         video = m.top.createChild("Video")
+        'video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
+        'video.setHttpAgent(httpAgent)
         video.id = "video"
         video.width = "1280"
         video.height = "720"

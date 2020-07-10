@@ -42,6 +42,11 @@ sub OnDetailsContentSet(event as Object)
     end if
 
 end sub
+  'For using a DRM system/CDN
+  'contentNode.KeySystem = "playready"
+  'contentNode.streamFormat = "dash"
+  'contentNode.encodingType = "PlayReadyLicenseAcquisitionUrl"
+  'contentNode.encodingKey = m.drmKeyUrl
 'comment out if not using prebuffering
 sub OnDetailsItemLoaded()
     ' create a media view so we can start preloading content
@@ -49,7 +54,9 @@ sub OnDetailsItemLoaded()
     AddBookmarksHandler(m.details.content)
     m.video = CreateObject("roSGNode", "MediaView")
     httpAgent = CreateObject("roHttpAgent")
-    m.video.HttpHeaders = "Authorization:Basic YW5hbnQ6c2FlN3V1YjNBaQ=="
+    m.video.setCertificatesFile("common:/certs/ca-bundle.crt")
+    m.video.InitClientCertificates()
+    m.video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     m.video.setHttpAgent(httpAgent)
     m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
     ' we'll use this observer to print the state of the MediaView to the console
