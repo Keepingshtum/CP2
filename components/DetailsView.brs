@@ -75,6 +75,7 @@ sub OnDetailsItemLoaded()
     m.video.alwaysShowEndcards = true
 
     m.video.content = m.details.content
+    'm.video.contentAddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     m.video.jumpToItem = m.details.itemFocused
 
     ' turn on preloading
