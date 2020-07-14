@@ -56,7 +56,7 @@ sub OnDetailsItemLoaded()
     httpAgent = CreateObject("roHttpAgent")
     m.video.setCertificatesFile("common:/certs/ca-bundle.crt")
     m.video.InitClientCertificates()
-    m.video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
+    m.video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=") ' doesn't work yet
     m.video.setHttpAgent(httpAgent)
     m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
     ' we'll use this observer to print the state of the MediaView to the console
@@ -87,6 +87,7 @@ sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
     item = details.content.GetChild(details.itemFocused)
+    '?item.getInfo()
 
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
@@ -129,9 +130,9 @@ end sub
 sub RefreshButtons(details as Object)
     item = details.content.GetChild(details.itemFocused)
     ' play button is always available
-    buttons = [{ title: "Play", id: "play" }]
+    buttons = [{ title: "Play from the beginning", id: "play" }]
     ' continue button available only when this item has bookmark
-    if item.bookmarkPosition > 0 then buttons.Push({ title: "Continue", id: "continue" })
+    if item.bookmarkPosition > 0 then buttons.Push({ title: "Continue Watching", id: "continue" })
     btnsContent = CreateObject("roSGNode", "ContentNode")
     btnsContent.Update({ children: buttons })
     ' set buttons
