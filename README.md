@@ -47,7 +47,14 @@ The file name should be beside the “Upload” button.
 
 Click “Install” and the installation process will begin. When its done, your app will instantly open on the Roku.
 
-# Using this repository 
+# To Do:
+
+Add Screenshots
+
+
+# Using this repository / Customising this channel
+
+To Do: add how to modify feed to show up properly
 
 This channel basically has all the features a typical user would need- so the idea is all an end user (e.g you, the reader) need to do is modify the feed url to populate the channel. 
 
