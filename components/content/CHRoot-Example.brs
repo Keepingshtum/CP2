@@ -47,7 +47,7 @@ sub GetContent()
     end if
     
 
-    rootNodeArray = ParseJsonToNodeArray(json)
+     rootNodeArray = ParseJsonToNodeArray(json)
     m.top.content.Update(rootNodeArray)
 end sub
 
@@ -106,6 +106,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
             
         })
+    itemNode.AddHeader("Authorization", "Basic Auth Key")
 
     if mediaItem = invalid then
         return itemNode
