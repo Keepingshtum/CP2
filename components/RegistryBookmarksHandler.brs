@@ -1,5 +1,3 @@
-' ********** Copyright 2019 Roku Corp.  All Rights Reserved. **********
-
 'BookmarksHandler interface functions'
 sub SaveBookmark()
     content = m.top.content

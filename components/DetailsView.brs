@@ -129,10 +129,15 @@ end sub
 ' it will check whether item has bookmark and show correct buttons
 sub RefreshButtons(details as Object)
     item = details.content.GetChild(details.itemFocused)
-    ' play button is always available
-    buttons = [{ title: "Play from the beginning", id: "play" }]
     ' continue button available only when this item has bookmark
-    if item.bookmarkPosition > 0 then buttons.Push({ title: "Continue Watching", id: "continue" })
+    if item.bookmarkPosition > 0 
+        buttons = [{ title: "Continue Watching", id: "continue" }]
+        buttons.Push({ title: "Play from the beginning", id: "play" })
+        buttons.Push({ title: "Add to watch list", id: "watch" })
+    else ' play button is always available along with add to watch list
+        buttons = [{ title: "Play title", id: "play" }]
+        buttons.Push({ title: "Add to watch list", id: "watch" })
+    end if
     btnsContent = CreateObject("roSGNode", "ContentNode")
     btnsContent.Update({ children: buttons })
     ' set buttons

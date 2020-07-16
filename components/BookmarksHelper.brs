@@ -1,7 +1,7 @@
-' ********** Copyright 2019 Roku Corp.  All Rights Reserved. **********
-
 ' function for getting bookmark position for item by id
 ' read bookmark from registry
+'TO DO: Implement Server based versions of these as well
+
 function BookmarksHelper_GetBookmarkData(id as Object) As Integer
     ?"BookmarksHelper_GetBookmarkData(" id ")"
     sec = CreateObject("roRegistrySection", "Bookmarks")
