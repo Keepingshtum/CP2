@@ -1,4 +1,4 @@
-' function for getting Watchlist position for item by id
+' function for getting Watchlist status for item by id
 ' read Watchlist from registry
 'TO DO: Implement Server based versions of these as well
 
@@ -12,7 +12,7 @@ function Watchlist_GetWatchlistData(id as Object) As Integer
     return 0
 end function
 
-' function for setting Watchlist position for item by id
+' function for setting Watchlist status for item by id
 ' write Watchlist to registry
 sub Watchlist_SetWatchlistData(id as String, position as Integer)
     ?"Watchlist_SetWatchlistData(" id "," position ")"

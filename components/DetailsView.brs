@@ -133,11 +133,15 @@ sub RefreshButtons(details as Object)
     if item.bookmarkPosition > 0 
         buttons = [{ title: "Continue Watching", id: "continue" }]
         buttons.Push({ title: "Play from the beginning", id: "play" })
-        buttons.Push({ title: "Add to watch list", id: "watch" })
-    else ' play button is always available along with add to watch list
+    else ' play button is always available
         buttons = [{ title: "Play title", id: "play" }]
-        buttons.Push({ title: "Add to watch list", id: "watch" })
     end if
+    if item.Watchlist = "false"
+        buttons.Push({ title: "Add to watch list", id: "watch" })
+    else 
+        buttons.Push({ title: "Remove from watch list", id: "remove" })
+    end if
+    buttons.Push({ title: "More like this", id: "More" })
     btnsContent = CreateObject("roSGNode", "ContentNode")
     btnsContent.Update({ children: buttons })
     ' set buttons
