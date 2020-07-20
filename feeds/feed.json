@@ -1,158 +1,133 @@
 {
-  "providerName": "Roku Recommends",
+  "providerName": "CCExtractor",
   "language": "en-US",
-  "lastUpdated": "2017-04-20T02:01:00+02:00",
+  "lastUpdated": "2020-07-19T02:01:00+02:00",
   "movies": [
     {
-      "id": "123456789",
-      "title": "Live Gaming",
+      "id": "00004",
+      "title": "Arduino Tutorial",
       "releaseDate": "2015-06-11",
-      "shortDescription": "With the Twitch channel, you can watch the most popular broadcasts of the day, browse live broadcasts by the games you love and follow your favorite Twitch broadcasters.",
-      "thumbnail": "https://blog.roku.com/developer/files/2016/10/twitch-poster-artwork.png",
+      "shortDescription": "Curious about how to solder a connection on an Arduino board? Look no further!",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/ArduTech.png",
       "genres": [
-        "drama"
+        "technology"
       ],
       "tags": [
-        "films"
+        "tech"
       ],
       "content": {
         "dateAdded": "2015-06-11T14:14:54.431Z",
         "captions": [],
         "videos": [
           {
-            "url": "https://fremicro029.xirvik.com/downloads/Test.mp4",
-            "quality": "HD",
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/Tech/Tech.mp4",
+            "quality": "UHD",
             "videoType": "MP4"
           }
         ],
-        "duration": 53
+        "duration": 38
       }
     },
     {
-              "id": "6c9d0951d6d74229afe4adf972b278dd",
-              "title": "Let's Get Cookin'",
-              "releaseDate": "2015-05-21",
-              "shortDescription": "The Paula Deen Channel is your instant access to new and hilarious Paula Deen cooking and lifestyle shows. Paula and her sons,  Jamie and Bobby, will cook up their delicious southern recipes and help you with hints and tips that make meal planning simple, affordable and easy.",
-              "thumbnail": "https://blog.roku.com/developer/files/2016/10/paula-deen-poster-artwork.png",
-              "genres": [
-               "drama"
-              ],
-              "tags": [
-                "films"
-              ],
-              "content": {
-                "dateAdded": "2015-05-21T14:14:54.431Z",
-                "captions": [],
-                "duration": 59,
-                "videos": [
-                  {
-                    "url": "http://roku.content.video.llnw.net/smedia/59021fabe3b645968e382ac726cd6c7b/An/Ad7-vxssRzyBjjdbdLdikctclTqxwEGsVWZGpiKp4/roku_ep_115_segment_5_paula_nw_050515.mp4",
-                    "quality": "HD",
-                    "videoType": "MP4"
-                  }
-                ]
-              }
-            },
-    {
-      "id": "123456789",
-      "title": "Live Gaming",
-      "releaseDate": "2015-06-11",
-      "shortDescription": "With the Twitch channel, you can watch the most popular broadcasts of the day, browse live broadcasts by the games you love and follow your favorite Twitch broadcasters.",
-      "thumbnail": "https://blog.roku.com/developer/files/2016/10/twitch-poster-artwork.png",
+      "id": "00005",
+      "title": "Tech Conference",
+      "releaseDate": "2015-05-21",
+      "shortDescription": "Watch a clip of the tech conference on 'Winning together- Tech and Sustainability.' ",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/TechConf.png",
       "genres": [
-        "drama"
+        "technology"
       ],
       "tags": [
-        "films"
+        "tech"
+      ],
+      "content": {
+        "dateAdded": "2015-05-21T14:14:54.431Z",
+        "captions": [],
+        "duration": 325,
+        "videos": [
+          {
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/Tech/Winning%20Together_%20Tech%20%26%20Sustainability.mp4",
+            "quality": "FHD",
+            "videoType": "MP4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "00006",
+      "title": "Tech Service Promo",
+      "releaseDate": "2015-06-11",
+      "shortDescription": "This is how a tech support channel (e.g xirvik) will be able to do 'How to Videos",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/WPTech.png",
+      "genres": [
+        "technology"
+      ],
+      "tags": [
+        "tech"
       ],
       "content": {
         "dateAdded": "2015-06-11T14:14:54.431Z",
         "captions": [],
         "videos": [
           {
-            "url": "http://roku.content.video.llnw.net/smedia/59021fabe3b645968e382ac726cd6c7b/Gb/siCt-V7LOSU08W_Ve1ByJY5N9emKZeXZvnrH2Yb9c/117_segment_2_twitch__nw_060515.mp4",
-            "quality": "HD",
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/Tech/WP%20Promo%20Video.mp4",
+            "quality": "FHD",
             "videoType": "MP4"
           }
         ],
-        "duration": 53
+        "duration": 157
       }
     },
     {
-              "id": "6c9d0951d6d74229afe4adf972b278dd",
-              "title": "Let's Get Cookin'",
-              "releaseDate": "2015-05-21",
-              "shortDescription": "The Paula Deen Channel is your instant access to new and hilarious Paula Deen cooking and lifestyle shows. Paula and her sons,  Jamie and Bobby, will cook up their delicious southern recipes and help you with hints and tips that make meal planning simple, affordable and easy.",
-              "thumbnail": "https://blog.roku.com/developer/files/2016/10/paula-deen-poster-artwork.png",
-              "genres": [
-               "drama"
-              ],
-              "tags": [
-                "films"
-              ],
-              "content": {
-                "dateAdded": "2015-05-21T14:14:54.431Z",
-                "captions": [],
-                "duration": 59,
-                "videos": [
-                  {
-                    "url": "http://roku.content.video.llnw.net/smedia/59021fabe3b645968e382ac726cd6c7b/An/Ad7-vxssRzyBjjdbdLdikctclTqxwEGsVWZGpiKp4/roku_ep_115_segment_5_paula_nw_050515.mp4",
-                    "quality": "HD",
-                    "videoType": "MP4"
-                  }
-                ]
-              }
-            },
-    {
-      "id": "123456789",
-      "title": "Live Gaming",
-      "releaseDate": "2015-06-11",
-      "shortDescription": "With the Twitch channel, you can watch the most popular broadcasts of the day, browse live broadcasts by the games you love and follow your favorite Twitch broadcasters.",
-      "thumbnail": "https://blog.roku.com/developer/files/2016/10/twitch-poster-artwork.png",
+      "id": "00007",
+      "title": "Genetics and Viruses",
+      "releaseDate": "2015-05-21",
+      "shortDescription": "Genetics and Viruses - MTHFR with Elijah Free_ Life Enthusiast Podcast- An example of how a video podcast channel would host videos.",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/SciPod.png",
       "genres": [
-        "drama"
+        "science"
       ],
       "tags": [
-        "films"
+        "science"
+      ],
+      "content": {
+        "dateAdded": "2015-05-21T14:14:54.431Z",
+        "captions": [],
+        "duration": 1765,
+        "videos": [
+          {
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/Genetics%20and%20Viruses%20-%20MTHFR%20with%20Elijah%20Free_%20Life%20Enthusiast%20Podcast.mp4",
+            "quality": "HD",
+            "videoType": "MP4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "00008",
+      "title": "Interview (Stock Footage)",
+      "releaseDate": "2015-06-11",
+      "shortDescription": "Here's how an interview would look (There's no audio on this one)",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/Interview.png",
+      "genres": [
+        "documentary"
+      ],
+      "tags": [
+        "docs"
       ],
       "content": {
         "dateAdded": "2015-06-11T14:14:54.431Z",
         "captions": [],
         "videos": [
           {
-            "url": "http://roku.content.video.llnw.net/smedia/59021fabe3b645968e382ac726cd6c7b/Gb/siCt-V7LOSU08W_Ve1ByJY5N9emKZeXZvnrH2Yb9c/117_segment_2_twitch__nw_060515.mp4",
-            "quality": "HD",
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/Interview%20stock%20footage.mp4",
+            "quality": "UHD",
             "videoType": "MP4"
           }
         ],
-        "duration": 53
+        "duration": 25
       }
-    },
-    {
-              "id": "6c9d0951d6d74229afe4adf972b278dd",
-              "title": "Let's Get Cookin'",
-              "releaseDate": "2015-05-21",
-              "shortDescription": "The Paula Deen Channel is your instant access to new and hilarious Paula Deen cooking and lifestyle shows. Paula and her sons,  Jamie and Bobby, will cook up their delicious southern recipes and help you with hints and tips that make meal planning simple, affordable and easy.",
-              "thumbnail": "https://blog.roku.com/developer/files/2016/10/paula-deen-poster-artwork.png",
-              "genres": [
-               "drama"
-              ],
-              "tags": [
-                "films"
-              ],
-              "content": {
-                "dateAdded": "2015-05-21T14:14:54.431Z",
-                "captions": [],
-                "duration": 59,
-                "videos": [
-                  {
-                    "url": "http://roku.content.video.llnw.net/smedia/59021fabe3b645968e382ac726cd6c7b/An/Ad7-vxssRzyBjjdbdLdikctclTqxwEGsVWZGpiKp4/roku_ep_115_segment_5_paula_nw_050515.mp4",
-                    "quality": "HD",
-                    "videoType": "MP4"
-                  }
-                ]
-              }
-            }
+    }
   ],
   "series": [
     {
