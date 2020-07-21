@@ -193,8 +193,11 @@ sub CreateMediaNode()
         video.ObserveFieldScoped("retrievingBarVisibilityHint", "OnPlayBarVisibilityHintChanged")
         m.media = video
     else if mode = "audio"
+        httpAgent = CreateObject("roHttpAgent")
         m.npn = m.top.createChild("NowPlayingView")
         audio = m.top.createChild("Audio")
+        audio.setHttpAgent(httpAgent)
+        audio.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
         audio.id = "audio"
         m.media = audio
     end if
@@ -883,7 +886,7 @@ end function
 sub StartPlayback(control as String)
     if m.media <> invalid
         if m.top.IsInFocusChain() then m.media.SetFocus(true)
-        if GetCurrentMode() = "video"
+        if GetCurrentMode() = "video" or GetCurrentMode() ="audio"
             m.media.visible = true
             m.media.enableUI = true
         else

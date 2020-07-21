@@ -5,7 +5,9 @@ function ShowDetailsView(content as Object, index as Integer) as Object
         content: content
         jumpToItem: index
     })
-    m.details.ObserveField("itemLoaded", "OnDetailsItemLoaded") 'Comment out if not using prebuffering
+    m.details.ObserveField("itemLoaded", "OnAudioDetailsItemLoaded")
+    m.details.ObserveField("itemLoaded", "OnDetailsItemLoaded")'Comment out if not using prebuffering
+     
     m.details.ObserveField("currentItem","OnDetailsContentSet")
     m.details.ObserveField("buttonSelected", "OnButtonSelected")
     m.top.ComponentController.CallFunc("show", {
@@ -24,7 +26,13 @@ sub OnDetailsContentSet(event as Object)
     if currentItem <> invalid
         buttonsToCreate = []
 
-        if currentItem.url <> invalid and currentItem.url <> ""
+        if details.content.TITLE = "Music"
+            buttonsToCreate.Push({ title: "Play Track", id: "playaudio" })
+            btnsContent = CreateObject("roSGNode", "ContentNode")
+            btnsContent.Update({ children: buttonsToCreate })
+            details.buttons = btnsContent
+
+        else if currentItem.url <> invalid and currentItem.url <> ""
             ?"Refresh buttons called from OnDetailsContentSet"
             RefreshButtons(details) 'Make play available by default, add a Play again if bookmarks are present
         else if details.content.TITLE = "series"
@@ -32,6 +40,7 @@ sub OnDetailsContentSet(event as Object)
             btnsContent = CreateObject("roSGNode", "ContentNode")
             btnsContent.Update({ children: buttonsToCreate })
             details.buttons = btnsContent
+
         else
             buttonsToCreate.Push({ title: "No Content to play", id: "no_content" })
             btnsContent = CreateObject("roSGNode", "ContentNode")
@@ -109,6 +118,15 @@ sub OnButtonSelected(event as Object)
         if details.currentItem.seasons <> invalid then
             ShowEpisodePickerView(details.currentItem.seasons)
         end if
+    else if selectedButton.id = "playaudio"
+    if m.audio <> invalid
+        m.audio.control = "play"
+        ' Show the Audio view
+        m.top.ComponentController.callFunc("show", {
+            view: m.audio
+        })
+    end if
+
     else
         ' handle all other button presses
     end if
@@ -174,4 +192,24 @@ sub OnEndcardItemSelected(event as Object)
         video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
     end if
     ' ? "OnEndcardItemSelected item == "; item
+end sub
+
+sub OnAudioDetailsItemLoaded()
+    ClearMediaPlayer() ' Reseting MediaView
+    m.video = invalid
+    m.audio = CreateMediaPlayer(m.details.content, m.details.itemFocused)
+    m.audio.ObserveFieldScoped("wasClosed", "OnMediaWasClosed")
+end sub
+
+sub OnMediaWasClosed()
+    m.details.jumpToItem = m.audio.currentIndex 'moving focus to proper item on details row
+    ClearMediaPlayer() ' clear player
+    OnAudioDetailsItemLoaded() ' start buffering new one
+end sub
+
+sub ClearMediaPlayer()
+    if m.audio <> invalid
+        m.audio.UnobserveFieldScoped("wasClosed")
+        m.audio = invalid
+    end if
 end sub
