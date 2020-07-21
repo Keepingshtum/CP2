@@ -69,13 +69,13 @@ sub OnDetailsItemLoaded()
         bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
         bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
         bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
+        backgroundImageURI : "pkg:/images/bar.9.png"
     }
 
     ' preloading also works while endcards are displayed
     m.video.alwaysShowEndcards = true
 
     m.video.content = m.details.content
-    'm.video.contentAddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     m.video.jumpToItem = m.details.itemFocused
 
     ' turn on preloading

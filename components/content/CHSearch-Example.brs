@@ -39,7 +39,7 @@ sub GetContent()
 end sub
 
 function ParseJsonToNodeArray(jsonAA as Object) as Object
-    videolist = "movies series"
+    videolist = "movies series For You"
     if jsonAA = invalid then return []
     resultNodeArray = {
        children: []
@@ -52,16 +52,17 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
             itemsNodeArray = []
             for each mediaItem in mediaItemsArray
                 itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-                if Instr(1,itemNode.title,m.top.query) <> 0
+                if Instr(1,Ucase(itemNode.title),Ucase(m.top.query)) <> 0 'case insensitive search
                 itemsNodeArray.Push(itemNode)
                 end if
             end for
+            if itemsNodeArray.Count() <> 0
             rowAA = {
                title: fieldInJsonAA
                children: itemsNodeArray
             }
-
-           resultNodeArray.children.Push(rowAA)
+            resultNodeArray.children.Push(rowAA)
+            end if
        end if
     end for
 
