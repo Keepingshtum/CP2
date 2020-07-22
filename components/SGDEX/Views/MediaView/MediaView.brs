@@ -1024,7 +1024,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
 
     if press and GetCurrentMode() = "audio"
         position = Int(m.media.position)
-        if key = "play"
+        if key = "play" or key = "Ok"
             if m.media.state = "playing"
                 m.media.control = "pause"
             else
