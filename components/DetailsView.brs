@@ -5,7 +5,6 @@ function ShowDetailsView(content as Object, index as Integer) as Object
         content: content
         jumpToItem: index
     })
-    m.details.ObserveField("itemLoaded", "OnAudioDetailsItemLoaded")
     m.details.ObserveField("itemLoaded", "OnDetailsItemLoaded")'Comment out if not using prebuffering
      
     m.details.ObserveField("currentItem","OnDetailsContentSet")
@@ -119,6 +118,7 @@ sub OnButtonSelected(event as Object)
             ShowEpisodePickerView(details.currentItem.seasons)
         end if
     else if selectedButton.id = "playaudio"
+    OnAudioDetailsItemLoaded()
     if m.audio <> invalid
         m.audio.control = "play"
         ' Show the Audio view
@@ -196,7 +196,6 @@ end sub
 
 sub OnAudioDetailsItemLoaded()
     ClearMediaPlayer() ' Reseting MediaView
-    m.video = invalid
     m.audio = CreateMediaPlayer(m.details.content, m.details.itemFocused)
     m.audio.ObserveFieldScoped("wasClosed", "OnMediaWasClosed")
 end sub

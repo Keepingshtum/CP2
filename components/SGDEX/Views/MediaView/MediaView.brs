@@ -886,7 +886,7 @@ end function
 sub StartPlayback(control as String)
     if m.media <> invalid
         if m.top.IsInFocusChain() then m.media.SetFocus(true)
-        if GetCurrentMode() = "video" or GetCurrentMode() ="audio"
+        if GetCurrentMode() = "video"
             m.media.visible = true
             m.media.enableUI = true
         else
@@ -1024,7 +1024,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
 
     if press and GetCurrentMode() = "audio"
         position = Int(m.media.position)
-        if key = "play" or key = "Ok"
+        if key = "play" or key = "ok"
             if m.media.state = "playing"
                 m.media.control = "pause"
             else
