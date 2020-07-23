@@ -50,23 +50,24 @@ sub OnDetailsContentSet(event as Object)
     end if
 
 end sub
+
   'For using a DRM system/CDN
   'contentNode.KeySystem = "playready"
   'contentNode.streamFormat = "dash"
   'contentNode.encodingType = "PlayReadyLicenseAcquisitionUrl"
   'contentNode.encodingKey = m.drmKeyUrl
+
 'comment out if not using prebuffering
 sub OnDetailsItemLoaded()
     ' create a media view so we can start preloading content
     ' we won't show this view until the user selects the "Play" button on the DetailsView
-    AddBookmarksHandler(m.details.content)
+    AddBookmarksHandler(m.details.content,m.details.itemFocused)
     m.video = CreateObject("roSGNode", "MediaView")
     httpAgent = CreateObject("roHttpAgent")
     m.video.setCertificatesFile("common:/certs/ca-bundle.crt")
     m.video.InitClientCertificates()
     m.video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=") ' doesn't work yet
     m.video.setHttpAgent(httpAgent)
-    m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
     ' we'll use this observer to print the state of the MediaView to the console
     ' this let's us see when prebuffering starts
     m.video.ObserveField("state", "OnVideoState")
@@ -89,6 +90,7 @@ sub OnDetailsItemLoaded()
     ' turn on preloading
     ' it's off by default for backward compatibility
     m.video.preloadContent = true
+    m.video.ObserveFieldScoped("wasClosed", "OnVideoWasClosed")
 end sub
 'Handle User Interaction
 sub OnButtonSelected(event as Object)
@@ -100,9 +102,10 @@ sub OnButtonSelected(event as Object)
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
         item.bookmarkPosition = 0 ' Reset bookmark
+        OnVideoWasClosed() 'Reload video since the preloaded one loaded with bookmark
         m.video.ObserveField("wasClosed", "OnVideoWasClosed")
         m.video.control = "play"
-        m.top.ComponentController.CallFunc("show", { 'Since we have already made the video view, all we need to do is show it
+        m.top.ComponentController.CallFunc("show", { 
         view: m.video
     })
     else if selectedButton.id = "continue" 
@@ -176,7 +179,7 @@ sub AddBookmarksHandler(contentItem as Object, index = invalid as Object)
             fields: {
                 minBookmark: 10
                 maxBookmark: 10
-                interval : 10 ' bookmark saving interface
+                'interval : 10 ' bookmark saving interface
             }
         }
     })

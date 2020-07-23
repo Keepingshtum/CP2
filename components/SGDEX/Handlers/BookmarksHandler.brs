@@ -121,6 +121,7 @@ Sub bookmarksHandler()
                 exit while
             else if lcase(field) = "bookmarkposition" then
                 _PrintBookmarkWarningMessage()
+                ' Double tap the registry save here?
             else
                 _PrintUnknownFieldWaringMessage()
             end if
