@@ -97,7 +97,7 @@ sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
     item = details.content.GetChild(details.itemFocused)
-    '?item.getInfo()
+    ?item
 
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
