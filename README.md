@@ -175,7 +175,9 @@ The order of how content shows up ([how?](https://github.com/Keepingshtum/CP2/bl
 # To Do:
 
 Add Screenshots
+
 Add Section on Channel certification/Publishing to Roku
+
 Add Config file for ease of customisability
 
 More content will come here soon!
