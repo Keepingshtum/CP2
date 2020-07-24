@@ -165,11 +165,11 @@ And you're done! Having replaced all these files and updating your feed, re-zip 
 
 ### Features that can be customised currently
 
-The channel content and descriptions ([how?]())
+The channel content and descriptions ([how?](https://github.com/Keepingshtum/CP2#part-two-configuring-channel-logos-and-theming))
 
-The channel icons/ overhang ([how?]())
+The channel icons/ overhang ([how?](https://github.com/Keepingshtum/CP2/blob/master/README.md#part-two-configuring-channel-logos-and-theming))
 
-The order of how content shows up ([how?]())
+The order of how content shows up ([how?](https://github.com/Keepingshtum/CP2/blob/master/README.md))
 
 
 # To Do:
