@@ -72,8 +72,8 @@ You can find the feeds in [this](https://github.com/Keepingshtum/CP2/tree/master
 Observe the fields carefully- 
 
 
-
-` "movies": [
+~~~ 
+"movies": [
     {
       "id": "00004",
       
@@ -120,7 +120,7 @@ Observe the fields carefully-
         "duration": 38
       }
     },
-`
+~~~
 This is how a typical entry will look. You will need to modify all these fields to replace the stock footage with your own content.
 This applies to all video form fields. Note that while you can put anything in the "tags" field, the genre needs to be one of the fields in the genres section [here](https://developer.roku.com/en-ot/docs/specs/direct-publisher-feed-specs/json-dp-spec.md#genres)
 
