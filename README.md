@@ -1,6 +1,9 @@
 # Installing the channel on your Roku
 
 Clone the repo onto your PC and extract the files. You'll find a file called bundle.zip, which you can upload to your Roku to see what the channel has to offer.
+
+**Alternatively, just download bundle.zip from the [releases](https://github.com/Keepingshtum/CP2/releases)!**
+
 To do this, follow the below steps:
 
 ### Step One: Enable Developer Mode
