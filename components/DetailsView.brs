@@ -31,6 +31,12 @@ sub OnDetailsContentSet(event as Object)
             btnsContent.Update({ children: buttonsToCreate })
             details.buttons = btnsContent
 
+        'else if details.content.TITLE = "Podcasts"
+        '    refreshaudiobuttons
+        '    btnsContent = CreateObject("roSGNode", "ContentNode")
+        '    btnsContent.Update({ children: buttonsToCreate })
+        '    details.buttons = btnsContent
+
         else if currentItem.url <> invalid and currentItem.url <> ""
             ?"Refresh buttons called from OnDetailsContentSet"
             RefreshButtons(details) 'Make play available by default, add a Play again if bookmarks are present
