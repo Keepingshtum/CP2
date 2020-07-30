@@ -86,6 +86,7 @@ sub OnDetailsItemLoaded()
         bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
         backgroundImageURI : "pkg:/images/bar.9.png"
     }
+    ?m.video.bufferingBar
 
     ' preloading also works while endcards are displayed
     m.video.alwaysShowEndcards = true
@@ -103,7 +104,6 @@ sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
     item = details.content.GetChild(details.itemFocused)
-    ?item
 
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
