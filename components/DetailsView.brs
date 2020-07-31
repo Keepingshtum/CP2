@@ -86,7 +86,6 @@ sub OnDetailsItemLoaded()
         bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
         backgroundImageURI : "pkg:/images/bar.9.png"
     }
-    ?m.video.bufferingBar
 
     ' preloading also works while endcards are displayed
     m.video.alwaysShowEndcards = true
