@@ -35,7 +35,7 @@ sub Init()
     ' When is mode changing we need to recreate mediaNode
     m.top.ObserveField("mode", "OnMediaModeChange")
 
-    ' When content is loaded and changing isContentList field we need to recreate mediaNode
+    ' When content is loaded and changing isContentList field we need to recreate  mediaNode
     m.top.ObserveField("isContentList", "OnIsContentListChange")
 
     m.top.ObserveField("disableScreenSaver", "OnDisableScreenSaver")
