@@ -39,7 +39,7 @@ sub GetContent()
 end sub
 
 function ParseJsonToNodeArray(jsonAA as Object) as Object
-    videolist = "movies series For You"
+    videolist = "movies series For You Music"
     if jsonAA = invalid then return []
     resultNodeArray = {
        children: []
@@ -52,7 +52,8 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
             itemsNodeArray = []
             for each mediaItem in mediaItemsArray
                 itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-                if Instr(1,Ucase(itemNode.title),Ucase(m.top.query)) <> 0 'case insensitive search
+                ?itemNode.categories
+                if Instr(1,Ucase(itemNode.title),Ucase(m.top.query)) <> 0 or Instr(1,Ucase(itemNode.categories[0]),Ucase(m.top.query)) <> 0 'case insensitive search
                 itemsNodeArray.Push(itemNode)
                 end if
             end for
@@ -76,16 +77,26 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "hdPosterUrl": mediaItem.thumbnail
             "Description": mediaItem.shortDescription
             "Categories": mediaItem.genres
+            "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
+            "Watchlist" : "false"
+            
         })
-
+    itemNode.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     if mediaItem = invalid then
         return itemNode
     end if
-
+    if mediaType = "Music"
+        Utils_forceSetFields(itemNode,{
+            "Url": GetVideoUrl(mediaItem)
+            streamFormat : "mp3"
+            length: mediaItem.content.duration
+        })
+    end if
     ' Assign movie specific fields
-    if mediaType = "movies"
+    if mediaType = "movies" 'modify here if you add short form videos
         Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
+                length: mediaItem.content.duration
                 HandlerConfigEndcard: { ' this is for endcards, see Endcard sample
                     name: "EndcardHandler"
                     fields: {
@@ -97,6 +108,14 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                 }
             })
     end if
+
+    if mediaType = "For You" 'For recommended playlist- consider unifying for all video types
+    Utils_forceSetFields(itemNode, {
+                "Url": GetVideoUrl(mediaItem)
+                length: mediaItem.content.duration
+            })
+    end if
+
 
     ' Assign series specific fields
     if mediaType = "series"
@@ -112,6 +131,8 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                     "title": episode.title
                     "hdPosterUrl": episode.thumbnail
                     "Description": episode.shortDescription
+                    "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
+                    "length": episode.content.duration
                 })
                 episodeArray.Push(episodeNode)
             end for
