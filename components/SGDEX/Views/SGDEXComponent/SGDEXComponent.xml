@@ -110,6 +110,6 @@
 
         <Group id="viewContentGroup" />
 
-        <Overhang id="overhang"  showOptions="true" optionsAvailable= "true" showClock="false" logoUri="pkg:/images/logo.png" translation="[-20,10]" OverhanglogoBaselineOffset = "-10"  />
+        <Overhang id="overhang"  showOptions="true" optionsAvailable= "true" showClock="false" logoUri="pkg:/images/logo.png" translation="[-20,10]"  />
     </children>
 </component>

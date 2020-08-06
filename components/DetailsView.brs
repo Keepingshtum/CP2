@@ -128,6 +128,7 @@ sub OnButtonSelected(event as Object)
     else if selectedButton.id = "playaudio"
     OnAudioDetailsItemLoaded()
     if m.audio <> invalid
+        ?m.audio
         m.audio.control = "play"
         ' Show the Audio view
         m.top.ComponentController.callFunc("show", {
