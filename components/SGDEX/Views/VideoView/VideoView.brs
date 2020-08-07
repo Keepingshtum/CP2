@@ -102,8 +102,10 @@ end sub
 sub CreateVideoNode() as Object
     ClearVideoNode()
     m.isBookmarkHandlerCreated = false
-
+    httpAgent = CreateObject("roHttpAgent")
     video = m.top.createChild("Video")
+    video.setHttpAgent(httpAgent)
+    video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     video.id = "video"
     video.width = "1280"
     video.height = "720"

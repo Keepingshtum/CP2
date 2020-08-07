@@ -183,7 +183,7 @@ sub CreateMediaNode()
         video.setHttpAgent(httpAgent)
         video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
         ?video.trickPlayBar
-        video.bufferingBar.scale = [1,0.5] ' Make it smaller so it looks a tad nicer
+        video.bufferingBar.scale = [1,1] ' Make it smaller so it looks a tad nicer
         video.id = "video"
         video.width = "1280"
         video.height = "720"
@@ -1022,6 +1022,16 @@ end function
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
     key = LCase(key) ' safety check
+
+    if press and GetCurrentMode() = "video"
+        if key = "play" or key = "ok"
+            if m.media.state = "playing"
+                m.media.control = "pause"
+            else
+                m.media.control = "resume"
+            end if
+        end if
+    end if
 
     if press and GetCurrentMode() = "audio"
         position = Int(m.media.position)

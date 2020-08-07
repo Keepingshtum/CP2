@@ -84,7 +84,8 @@ sub OnDetailsItemLoaded()
         bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
         bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
         bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
-        backgroundImageURI : "pkg:/images/bar.9.png"
+        backgroundImageURI : "pkg:/images/logo.png"
+        backgroundColor: "FF0000FF"
     }
 
     ' preloading also works while endcards are displayed

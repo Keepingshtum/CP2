@@ -130,14 +130,14 @@
             <Group>
                 <LabelList
                     id="buttons"
-                    numRows="3"
+                    numRows="4"
                     itemSpacing="[0,10]"
                     itemSize="[593, 48]"
                 />
 
                 <LayoutGroup
                     itemSpacings="[40]"
-                    translation="[0, 208]">
+                    translation="[0, 258]">
                     <Label
                         id="description"
                         wrap="true"
