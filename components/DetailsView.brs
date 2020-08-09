@@ -127,15 +127,17 @@ sub OnButtonSelected(event as Object)
             ShowEpisodePickerView(details.currentItem.seasons)
         end if
     else if selectedButton.id = "playaudio"
-    OnAudioDetailsItemLoaded()
-    if m.audio <> invalid
-        ?m.audio
-        m.audio.control = "play"
-        ' Show the Audio view
-        m.top.ComponentController.callFunc("show", {
-            view: m.audio
-        })
-    end if
+        OnAudioDetailsItemLoaded()
+        if m.audio <> invalid
+            '?m.audio
+            m.audio.control = "play"
+            ' Show the Audio view
+            m.top.ComponentController.callFunc("show", {
+                view: m.audio
+            })
+        end if
+    'else if selectedButton.id = "More"
+    '    ShowRecs()
 
     else
         ' handle all other button presses

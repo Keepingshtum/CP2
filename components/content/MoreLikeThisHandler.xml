@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<component name="CHRoot" extends="ContentHandler" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
-    <script type="text/brightscript" uri="MoreLikeThisHandler.brs" />
-    <script type="text/brightscript" uri="../../source/rsg_utils.brs" />
-    <script type="text/brightscript" uri="../BookmarksHelper.brs" />
-</component>

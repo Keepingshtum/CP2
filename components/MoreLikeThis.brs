@@ -1,7 +1,7 @@
 'Initialise Grid
-sub ShowRecs(args as Object)
+sub ShowRecs()
     m.grid = CreateObject("roSGNode", "GridView")
-
+    ?"test"
     ' setup UI of view
     m.grid.SetFields({
         style: "zoom"
@@ -9,9 +9,7 @@ sub ShowRecs(args as Object)
     })
     m.grid.theme = {
         OverhangoptionsText: "Search and Options"
-        global: {
-           
-        }
+
     }
     ' This is root content that describes how to populate rest of rows
     content = CreateObject("roSGNode", "ContentNode")
@@ -23,7 +21,7 @@ sub ShowRecs(args as Object)
     m.grid.ObserveField("More_rowItemSelected", "OnMoreGridItemSelected")
     m.grid.content = content
 
-    m.top.ComponentController.CallFunc("show", {
+    m.top.ComponentController.CallFunc("ShowRecs", {
         view: m.grid
     })
 end sub
