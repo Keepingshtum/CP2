@@ -1,7 +1,4 @@
-' Copyright (c) 2018 Roku, Inc. All rights reserved.
 
-' README:
-' EndcardView is a SGDEX component to render Endcards
 ' No business logic is made in Endcard view
 ' developer should set all fields outside and handle fields triggered
 Sub Init()
@@ -62,9 +59,15 @@ Sub Init()
     m.isAutoHideMode = m.buttonBar.autoHide
 
     m.buttonBar.opacity = 1
+    'BGImage = m.top.CreateChild("Poster")
+    'BGImage.translation = [0, 0]
+    'BGImage.width ="1280"
+    'BGImage.height ="720"
+    'BGImage.uri  ="pkg:/images/logo.png"
     m.bottomRectangle = m.top.findNode("bottomRectangle")
     m.topRectangle = m.top.findNode("topRectangle")
-
+    m.BGImage = m.top.findNode("BGImage")
+    m.BGImage.uri="pkg:/images/splash_fhd.jpg"
     m.overhangHeightTheme = invalid
     if m.LastThemeAttributes <> invalid then
         SGDEX_SetTheme(m.LastThemeAttributes)

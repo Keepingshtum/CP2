@@ -1,7 +1,8 @@
 'Initialise Grid
 sub Show(args as Object)
     m.grid = CreateObject("roSGNode", "GridView")
-
+    'm.global.addField(hdPosterUrl,string,alwaysNotify=false)
+    ?m.global
     ' setup UI of view
     m.grid.SetFields({
         style: "zoom"

@@ -87,6 +87,7 @@ sub OnDetailsItemLoaded()
         backgroundImageURI : "pkg:/images/logo.png"
         backgroundColor: "FF0000FF"
     }
+    'm.global.id=m.video.hdPosterUrl
 
     ' preloading also works while endcards are displayed
     m.video.alwaysShowEndcards = true

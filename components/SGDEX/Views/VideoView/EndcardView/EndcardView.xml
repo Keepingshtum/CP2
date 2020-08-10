@@ -47,7 +47,7 @@
         <!-- Two background rectangles with different colours -->
         <Rectangle
             id="topRectangle"
-            color="0x262626FF"
+            color="0x000000FF"
             width="1280"
             height="360"
             translation="[0,0]"
@@ -59,7 +59,12 @@
             height="360"
             translation="[0,360]"
         />
-
+        <Poster
+            id= "BGimage"
+            width="1280"
+            height="720"
+            translation ="[0,0]"
+        />
         <!-- Countdown prompt "Next video in" or "Close View in" -->
         <Label
             id="timerLabel"
