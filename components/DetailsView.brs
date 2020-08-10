@@ -129,19 +129,15 @@ sub OnButtonSelected(event as Object)
     else if selectedButton.id = "playaudio"
         OnAudioDetailsItemLoaded()
         if m.audio <> invalid
-            '?m.audio
+            ?m.audio
             m.audio.control = "play"
             ' Show the Audio view
             m.top.ComponentController.callFunc("show", {
                 view: m.audio
             })
         end if
-    'else if selectedButton.id = "More"
-    '    ShowRecs()
-    else if selectedButton.id ="watch"
-        Watchlist_SetWatchlistDataTrue(item.id)
-    else if selectedButton.id ="remove"
-        Watchlist_SetWatchlistDataFalse(item.id)
+    
+
     else
         ' handle all other button presses
     end if
