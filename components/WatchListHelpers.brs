@@ -14,10 +14,17 @@ end function
 
 ' function for setting Watchlist status for item by id
 ' write Watchlist to registry
-sub Watchlist_SetWatchlistData(id as String, position as Integer)
-    ?"Watchlist_SetWatchlistData(" id "," position ")"
+sub Watchlist_SetWatchlistDataTrue(id as String)
+    ?"Watchlist_SetWatchlistData(" id "," ")"
     sec = CreateObject("roRegistrySection", "Watchlists")
     sec.Write("Watchlist_" + id, "true")
+    sec.Flush()
+end sub
+
+sub Watchlist_SetWatchlistDataFalse(id as String)
+    ?"Watchlist_SetWatchlistData(" id "," ")"
+    sec = CreateObject("roRegistrySection", "Watchlists")
+    sec.Write("Watchlist_" + id, "false")
     sec.Flush()
 end sub
 
@@ -29,19 +36,19 @@ sub Watchlist_DeleteWatchlist(id as String)
     sec.Flush()
 end sub
 
-sub SaveWatchlist()
-    content = m.top.content
-    position = m.top.position
-    Watchlists_SetWatchlistData(content.id, position)
-end sub
+'sub SaveWatchlist()
+'    content = m.top.content
+'    position = m.top.position
+'    Watchlists_SetWatchlistData(content.id, position)
+'end sub
 
-function GetWatchlist() as Integer
-    content = m.top.content
-    return Watchlists_GetWatchlistData(content.id)
-end function
+'function GetWatchlist() as Integer
+'    content = m.top.content
+'    return Watchlists_GetWatchlistData(content.id)
+'end function
 
-sub RemoveWatchlist()
-    content = m.top.content
-    Watchlists_DeleteWatchlist(content.id)
-end sub
+'sub RemoveWatchlist()
+'    content = m.top.content
+'    Watchlists_DeleteWatchlist(content.id)
+'end sub
 

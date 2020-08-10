@@ -9,7 +9,7 @@
     <script type="text/brightscript" uri="SearchView.brs" />
     <script type="text/brightscript" uri="EpisodePickerLogic.brs" />
     <script type="text/brightscript" uri="MediaPlayerLogic.brs" />
-
+    <script type="text/brightscript" uri="WatchListHelpers.brs" />
     <script type="text/brightscript" uri="BookmarksHelper.brs" />
     <script type="text/brightscript" uri="../source/rsg_utils.brs" />
 </component>

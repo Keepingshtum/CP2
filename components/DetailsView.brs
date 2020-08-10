@@ -138,7 +138,10 @@ sub OnButtonSelected(event as Object)
         end if
     'else if selectedButton.id = "More"
     '    ShowRecs()
-
+    else if selectedButton.id ="watch"
+        Watchlist_SetWatchlistDataTrue(item.id)
+    else if selectedButton.id ="remove"
+        Watchlist_SetWatchlistDataFalse(item.id)
     else
         ' handle all other button presses
     end if
