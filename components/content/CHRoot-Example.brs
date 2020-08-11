@@ -57,8 +57,27 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
     resultNodeArray = {
        children: []
     }
+      ' For Watch list
+    'for each fieldInJsonAA in jsonAA
+    '    if Instr(1, "movies For You", fieldInJsonAA) <> 0 'and Watchlist_GetWatchlistData(m.top.content.id) <> 0
+    '        ?Watchlist_GetWatchlistData(m.top.content.id)
+    '        mediaItemsArray = jsonAA[fieldInJsonAA]
+    '        itemsNodeArray = []
+    '        for each mediaItem in mediaItemsArray
+    '            itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
+    '            itemsNodeArray.Push(itemNode)
+    '        end for
+    '        rowAA = {
+    '           title: "Continue Watching"
+    '           children: itemsNodeArray
+    '        }
+
+          'resultNodeArray.children.Push(rowAA)
+       'end if
+    'end for
+
+    ' For continue watching
     for each fieldInJsonAA in jsonAA
-        ' For continue watching
         if Instr(1, "movies For You", fieldInJsonAA) <> 0 and BookmarksHelper_GetBookmarkData(m.top.content.id) <> 0
             mediaItemsArray = jsonAA[fieldInJsonAA]
             itemsNodeArray = []
@@ -74,7 +93,7 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
            resultNodeArray.children.Push(rowAA)
        end if
     end for
-
+    ' For normal videos
     for each fieldInJsonAA in jsonAA
         ' Assigning fields that apply to both movies and series
         if Instr(1, videolist, fieldInJsonAA) <> 0
@@ -92,6 +111,24 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
            resultNodeArray.children.Push(rowAA)
        end if
     end for
+    ' For audio tracks
+     for each fieldInJsonAA in jsonAA
+        if Instr(1, "Music", fieldInJsonAA) <> 0
+            mediaItemsArray = jsonAA[fieldInJsonAA]
+            itemsNodeArray = []
+            for each mediaItem in mediaItemsArray
+                itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
+                itemsNodeArray.Push(itemNode)
+            end for
+            rowAA = {
+               title: "Music"
+               children: itemsNodeArray
+            }
+
+           resultNodeArray.children.Push(rowAA)
+       end if
+    end for
+
 
     return resultNodeArray
 end function
@@ -104,18 +141,26 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "Description": mediaItem.shortDescription
             "Categories": mediaItem.genres
             "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
+            "Watchlist" : "false"
             
         })
-    itemNode.AddHeader("Authorization", "Basic Auth Key")
-
+    itemNode.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
     if mediaItem = invalid then
         return itemNode
     end if
-
+    if mediaType = "Music"
+        Utils_forceSetFields(itemNode,{
+            "Url": GetVideoUrl(mediaItem)
+            streamFormat : "mp3"
+            length: mediaItem.content.duration
+            
+        })
+    end if
     ' Assign movie specific fields
-    if mediaType = "movies" 'modify here if you add short form videos (Note: endcard handler currently breaks for recommended playlist)
+    if mediaType = "movies" 'modify here if you add short form videos
         Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
+                length: mediaItem.content.duration
                 HandlerConfigEndcard: { ' this is for endcards, see Endcard sample
                     name: "EndcardHandler"
                     fields: {
@@ -131,6 +176,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
     if mediaType = "For You" 'For recommended playlist- consider unifying for all video types
     Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
+                length: mediaItem.content.duration
             })
     end if
 
@@ -150,6 +196,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                     "hdPosterUrl": episode.thumbnail
                     "Description": episode.shortDescription
                     "bookmarkPosition": BookmarksHelper_GetBookmarkData(m.top.content.id)
+                    "length": episode.content.duration
                 })
                 episodeArray.Push(episodeNode)
             end for
