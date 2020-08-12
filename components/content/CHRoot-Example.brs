@@ -57,7 +57,8 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
     resultNodeArray = {
        children: []
     }
-      ' For Watch list
+
+    ' For Watch list
     'for each fieldInJsonAA in jsonAA
     '    if Instr(1, "movies For You", fieldInJsonAA) <> 0 'and Watchlist_GetWatchlistData(m.top.content.id) <> 0
     '        ?Watchlist_GetWatchlistData(m.top.content.id)
@@ -101,6 +102,7 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
             itemsNodeArray = []
             for each mediaItem in mediaItemsArray
                 itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
+                '?itemNode
                 itemsNodeArray.Push(itemNode)
             end for
             rowAA = {
@@ -172,11 +174,29 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                 }
             })
     end if
+    'Subtitle_Tracks.push({"Language":"eng","TrackName":ccUrl,"Description":descriptionForLang})         subtitle_config = { TrackName: ccUrl}
 
+    '   ContentNode_object.subtitleconfig = subtitle_config
+
+    'ContentNode_object.SubtitleTracks = Subtitle_Tracks
     if mediaType = "For You" 'For recommended playlist- consider unifying for all video types
+    subtracks = []
+    subconf ={}
+    if mediaItem.content.captions.Peek() <> invalid
+        '?mediaItem.content.captions[0] 'This is only for the first sub file. Add a loop to iterate for all items
+        subnode=mediaItem.content.captions[0]
+        subtracks.Push({"Language":subnode.language,"TrackName":subnode.url,"Description":"English"})
+        subconf={"TrackName":subnode.url}
+
+    end if
+
+
+    
     Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
                 length: mediaItem.content.duration
+                SubtitleTracks : subtracks
+                subtitleconfig :subconf
             })
     end if
 

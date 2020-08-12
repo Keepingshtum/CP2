@@ -182,7 +182,6 @@ sub CreateMediaNode()
         video = m.top.createChild("Video")
         video.setHttpAgent(httpAgent)
         video.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
-        ?video.trickPlayBar
         video.bufferingBar.scale = [1,1] ' Make it smaller so it looks a tad nicer
         video.id = "video"
         video.width = "1280"
