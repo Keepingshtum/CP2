@@ -66,6 +66,10 @@ The Channel supports 3 types of content:
 
 The Channel can support all these at once, or you can choose to forgo some types of content. It is all dependent on what content you want on your channel!
 
+So for example, if you only want to show videos, remove the node called "Music" from the JSON feed and you will not see any musical titles in the channel.
+
+Simiilarly, if you only want to show series, you can remove "Movies" and "Music". Feel free to mix and match as much as you like.
+
 This brings us to the first part of using this channel:
 
 ### Part one: Customising the feed
@@ -173,6 +177,18 @@ The channel content and descriptions ([how?](https://github.com/Keepingshtum/CP2
 The channel icons/ overhang ([how?](https://github.com/Keepingshtum/CP2/blob/master/README.md#part-two-configuring-channel-logos-and-theming))
 
 The order of how content shows up ([how?](https://github.com/Keepingshtum/CP2/blob/master/README.md))
+
+The layout of some elements on the details screen. (how? Coming soon)
+
+The layout of some overhang elements. (how? coming soon)
+
+### Additional Customisation that needs a bit of tinkering with code
+
+**One can disable autoloading to provide support on legacy Roku devices**.
+
+Do this by commenting out the code as mentioned in DetailsView.brs - you need to disable preloading as soon as details view is called. 
+
+Then you need to remap calling videoview.brs on pressing "Play" or "Continue Watching".
 
 
 # To Do:
