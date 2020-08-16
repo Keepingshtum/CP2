@@ -15,6 +15,17 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     m.details.theme = {
     OverhangoptionsText: "Search and Options"
     }
+    MoreLikeThisGroup = m.top.CreateChild("LayoutGroup")
+    MoreLikeThisGroup.translation = [640, 580]
+    MoreLikeThisGroup.horizAlignment = "center"
+    MoreLikeThisGroup.vertAlignment = "center"
+    m.rowlist = MoreLikeThisGroup.CreateChild("RowList")
+    m.rowList.visible = true
+    m.rowList.numRows = 3
+    m.rowList.itemSize = [ 180*3 + 20*2, 250 ]
+    'm.spinner = MoreLikeThisGroup.CreateChild("BusySpinner")
+    'm.spinner.visible = true
+    'm.spinner.uri = "pkg:/components/SGDEX/Images/loader.png"
     return m.details
 end function
 
