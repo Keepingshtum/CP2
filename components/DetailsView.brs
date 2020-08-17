@@ -15,26 +15,26 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     m.details.theme = {
     OverhangoptionsText: "Search and Options"
     }
-    MoreLikeThisGroup = m.top.CreateChild("LayoutGroup")
-    MoreLikeThisGroup.translation = [640, 580]
-    MoreLikeThisGroup.horizAlignment = "center"
-    MoreLikeThisGroup.vertAlignment = "center"
-    m.rowlist = MoreLikeThisGroup.CreateChild("RowList")
+    'MoreLikeThisGroup = m.top.CreateChild("LayoutGroup")
+    'MoreLikeThisGroup.translation = [640, 580]
+    'MoreLikeThisGroup.horizAlignment = "center"
+    'MoreLikeThisGroup.vertAlignment = "center"
+    'm.rowlist = MoreLikeThisGroup.CreateChild("RowList")
     
     'm.spinner = MoreLikeThisGroup.CreateChild("BusySpinner")
     'm.spinner.visible = true
     'm.spinner.uri = "pkg:/components/SGDEX/Images/loader.png"
     'Something like 
-    content = CreateObject("roSGNode", "ContentNode")
-    content.AddFields({
-        HandlerConfigGrid: {
-            name: "MoreLikeThisHandler"
-        }
-    })
-    m.rowList.content = content '- add a content handler here to add a row with titles in the same category/tag
+    'content = CreateObject("roSGNode", "ContentNode")
+    'content.AddFields({
+    '    HandlerConfigGrid: {
+    '        name: "MoreLikeThisHandler"
+    '    }
+    '})
+    'm.rowList.content = content '- add a content handler here to add a row with titles in the same category/tag
     'm.rowList.numRows = 3
     'm.rowList.itemSize = [ 180*3 + 20*2, 250 ]
-    m.rowList.visible = true
+    'm.rowList.visible = true
     return m.details
 end function
 
@@ -125,7 +125,8 @@ sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
     item = details.content.GetChild(details.itemFocused)
-
+    ?item
+    ?item.categories[0]
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
         item.bookmarkPosition = 0 ' Reset bookmark
@@ -158,7 +159,8 @@ sub OnButtonSelected(event as Object)
             })
         end if
     
-
+    else if selectedButton.id ="More"
+        OpenSearch(item.categories[0]) ' DOES NOT WORK FOR SERIES NODES RIGHT NOW. FIX THE FEED
     else
         ' handle all other button presses
     end if
