@@ -1,12 +1,17 @@
-sub OpenSearch()
+sub OpenSearch(query as string)
     searchView = CreateObject("roSGNode", "SearchView")
     searchView.hintText = "Enter search term"
     ' query field will be changed each time user has typed something
     searchView.ObserveFieldScoped("query", "OnSearchQuery")
+    if query <> "" 'Check if Search is being called from More Like This
+        searchView.query = query
+        searchView.hintText = "Items related to title"
+    end if
     searchView.ObserveFieldScoped("rowItemSelected", "OnSearchItemSelected")
     searchView.theme = {
         OverhangoptionsText: "Toggle caps lock"
     }
+    ?searchView
 
     ' this will trigger job to show this screen
     m.top.ComponentController.CallFunc("show", {

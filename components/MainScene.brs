@@ -40,6 +40,6 @@ end sub
 
 function onKeyEvent(key, press) as Boolean
 	if key = "options" and press
-    OpenSearch()
+    OpenSearch("")
     end if
 end function
