@@ -23,9 +23,17 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     m.rowList.visible = true
     m.rowList.numRows = 3
     m.rowList.itemSize = [ 180*3 + 20*2, 250 ]
+    'm.rowList.content = content - add a content handler here to add a row with titles in the same category/tag
     'm.spinner = MoreLikeThisGroup.CreateChild("BusySpinner")
     'm.spinner.visible = true
     'm.spinner.uri = "pkg:/components/SGDEX/Images/loader.png"
+    'Something like 
+    ' content = CreateObject("roSGNode", "ContentNode")
+    'content.AddFields({
+    '    HandlerConfigGrid: {
+    '        name: "CHRoot"
+    '    }
+    '})
     return m.details
 end function
 

@@ -2,7 +2,7 @@
 sub Show(args as Object)
     m.grid = CreateObject("roSGNode", "GridView")
     'm.global.addField(hdPosterUrl,string,alwaysNotify=false)
-    ?m.global
+    '?m.global is the global field, can be used to pass around some values or append values to it
     ' setup UI of view
     m.grid.SetFields({
         style: "zoom"

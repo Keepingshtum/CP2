@@ -1,4 +1,4 @@
-'Script for Populating Feed
+'Script for Populating more like this rows
 'Get feed data via roUrlTransfer
 
 sub GetContent()
@@ -52,49 +52,12 @@ sub GetContent()
 end sub
 
 function ParseJsonToNodeArray(jsonAA as Object) as Object
-    videolist = "movies series For You" ' Add fields here to add playlists
+    videolist = "movies series For You Music"
     if jsonAA = invalid then return []
     resultNodeArray = {
        children: []
     }
 
-    ' For Watch list
-    'for each fieldInJsonAA in jsonAA
-    '    if Instr(1, "movies For You", fieldInJsonAA) <> 0 'and Watchlist_GetWatchlistData(m.top.content.id) <> 0
-    '        ?Watchlist_GetWatchlistData(m.top.content.id)
-    '        mediaItemsArray = jsonAA[fieldInJsonAA]
-    '        itemsNodeArray = []
-    '        for each mediaItem in mediaItemsArray
-    '            itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-    '            itemsNodeArray.Push(itemNode)
-    '        end for
-    '        rowAA = {
-    '           title: "Continue Watching"
-    '           children: itemsNodeArray
-    '        }
-
-          'resultNodeArray.children.Push(rowAA)
-       'end if
-    'end for
-
-    ' For continue watching
-    for each fieldInJsonAA in jsonAA
-        if Instr(1, "movies For You", fieldInJsonAA) <> 0 and BookmarksHelper_GetBookmarkData(m.top.content.id) <> 0
-            mediaItemsArray = jsonAA[fieldInJsonAA]
-            itemsNodeArray = []
-            for each mediaItem in mediaItemsArray
-                itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-                itemsNodeArray.Push(itemNode)
-            end for
-            rowAA = {
-               title: "Continue Watching"
-               children: itemsNodeArray
-            }
-
-           resultNodeArray.children.Push(rowAA)
-       end if
-    end for
-    ' For normal videos
     for each fieldInJsonAA in jsonAA
         ' Assigning fields that apply to both movies and series
         if Instr(1, videolist, fieldInJsonAA) <> 0
@@ -102,35 +65,20 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
             itemsNodeArray = []
             for each mediaItem in mediaItemsArray
                 itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-                '?itemNode
+                '?itemNode.categories to expose categories
+                if Instr(1,Ucase(itemNode.title),Ucase(m.top.query)) <> 0 or Instr(1,Ucase(itemNode.categories[0]),Ucase(m.top.query)) <> 0 'case insensitive search
                 itemsNodeArray.Push(itemNode)
+                end if
             end for
+            if itemsNodeArray.Count() <> 0
             rowAA = {
                title: fieldInJsonAA
                children: itemsNodeArray
             }
-
-           resultNodeArray.children.Push(rowAA)
+            resultNodeArray.children.Push(rowAA)
+            end if
        end if
     end for
-    ' For audio tracks
-     for each fieldInJsonAA in jsonAA
-        if Instr(1, "Music", fieldInJsonAA) <> 0
-            mediaItemsArray = jsonAA[fieldInJsonAA]
-            itemsNodeArray = []
-            for each mediaItem in mediaItemsArray
-                itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
-                itemsNodeArray.Push(itemNode)
-            end for
-            rowAA = {
-               title: "Music"
-               children: itemsNodeArray
-            }
-
-           resultNodeArray.children.Push(rowAA)
-       end if
-    end for
-
 
     return resultNodeArray
 end function
@@ -155,7 +103,6 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "Url": GetVideoUrl(mediaItem)
             streamFormat : "mp3"
             length: mediaItem.content.duration
-            
         })
     end if
     ' Assign movie specific fields
@@ -174,29 +121,11 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
                 }
             })
     end if
-    'Subtitle_Tracks.push({"Language":"eng","TrackName":ccUrl,"Description":descriptionForLang})         subtitle_config = { TrackName: ccUrl}
 
-    '   ContentNode_object.subtitleconfig = subtitle_config
-
-    'ContentNode_object.SubtitleTracks = Subtitle_Tracks
     if mediaType = "For You" 'For recommended playlist- consider unifying for all video types
-    subtracks = []
-    subconf ={}
-    if mediaItem.content.captions.Peek() <> invalid
-        '?mediaItem.content.captions[0] 'This is only for the first sub file. Add a loop to iterate for all items
-        subnode=mediaItem.content.captions[0]
-        subtracks.Push({"Language":subnode.language,"TrackName":subnode.url,"Description":"English"})
-        subconf={"TrackName":subnode.url}
-
-    end if
-
-
-    
     Utils_forceSetFields(itemNode, {
                 "Url": GetVideoUrl(mediaItem)
                 length: mediaItem.content.duration
-                SubtitleTracks : subtracks
-                subtitleconfig :subconf
             })
     end if
 
