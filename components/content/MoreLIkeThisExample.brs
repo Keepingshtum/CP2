@@ -94,7 +94,7 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             "Watchlist" : "false"
             
         })
-    itemNode.AddHeader("Authorization", "Basic YW5hbnQ6ZXh0cmFzYWZldHk=")
+    itemNode.AddHeader("Authorization", "YOUR BASE64 AUTH")
     if mediaItem = invalid then
         return itemNode
     end if
