@@ -99,6 +99,15 @@ sub OnDetailsItemLoaded()
     ' this let's us see when prebuffering starts
     m.video.ObserveField("state", "OnVideoState")
     m.video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
+    'function to read from config file
+    text=ReadAsciiFile("pkg:/configs/videoview.txt")
+    r = CreateObject("roRegex", "\n", "") ' split on newline
+    lines=r.split(text)
+    for each str in lines
+        if Instr(1, str, "test") <> 0
+            ?str
+        end if
+    end for
     m.video.theme = {
         OverhangVisible : "false"
         trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
