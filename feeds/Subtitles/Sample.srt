@@ -1,0 +1,19 @@
+1
+00:00:00,000 --> 00:00:01,500
+For CCExtractor, a sample subtitle
+
+2
+00:00:01,500 --> 00:00:02,500
+<i>Italicised Text.</i>
+
+3
+00:00:03,000 --> 00:00:15,000
+<i>Some more italicised text--</i>
+
+4
+00:00:15,000 --> 00:00:20,000
+To add your own subtitles, you'll need to make an srt file.
+
+5
+00:00:20,000 --> 00:00:25,000
+Read the docs (on the repo) to find out how!
