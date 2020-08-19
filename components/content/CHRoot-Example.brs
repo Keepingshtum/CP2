@@ -3,17 +3,15 @@
 
 sub GetContent()
 
-    ' Will need to check if user is Auth'd with the channel to fetch recommendations. Will come back once Activation is done (towards end of eval two)
-    ' Something like if (userauthtoken <> invalid) then fetch recommendation. else fetch default feed
-    'port = CreateObject("roMessagePort")
+   'port = CreateObject("roMessagePort")
     'request = CreateObject("roUrlTransfer")
     'request.SetMessagePort(port)
     'request.SetCertificatesFile("common:/certs/ca-bundle.crt")
     'request.RetainBodyOnError(true)
     'request.AddHeader ("Authorization", "YOUR UNIQUE ACCESS TOKEN HERE") ' Depends on the backend what the auth token is, but this is general format
-    'request.AddHeader("Authorization", "Basic YOUR-BASE64-STRING") ' How I can access from seedbox
+    'request.AddHeader("Authorization", "Basic YW5hbnQ6c2FlN3V1YjNBaQ==") ' How I can access from seedbox
     'request.SetRequest("GET")
-    'request.SetUrl("yourserverurl")
+    'request.SetUrl("https://YOUR SERVER/downloads/server/feed_recco.json")
     'requestSent = request.AsyncGetToString()
     'if (requestSent)
     '    msg = wait(0, port)
@@ -25,6 +23,17 @@ sub GetContent()
     '        json = ParseJson(body)
     '    end if
     'end if
+
+
+    'function to read from config file
+    'text=ReadAsciiFile("pkg:/test.txt")
+    'r = CreateObject("roRegex", "\n", "") ' split on newline
+    'lines=r.split(text)
+    'for each str in lines
+    '    if Instr(1, str, "test") <> 0
+    '        ?str
+    '    end if
+    'end for
 
     port = CreateObject("roMessagePort")
     request = CreateObject("roUrlTransfer")

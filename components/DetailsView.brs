@@ -15,6 +15,7 @@ function ShowDetailsView(content as Object, index as Integer) as Object
     m.details.theme = {
     OverhangoptionsText: "Search and Options"
     }
+    'Code for how to add components as children to the view
     'MoreLikeThisGroup = m.top.CreateChild("LayoutGroup")
     'MoreLikeThisGroup.translation = [640, 580]
     'MoreLikeThisGroup.horizAlignment = "center"
