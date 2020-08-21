@@ -13,6 +13,16 @@ sub GetContent()
     'feed = ReadAsciiFile("pkg:/feed/feed.json")
     'Sleep(2000) ' to emulate API call
 
+    text=ReadAsciiFile("pkg:/configs/videoview.txt")
+    splitlines = CreateObject("roRegex", "\n", "") ' split on newline
+    pkgregex = CreateObject("roRegex", "^pkg", "") 'check for package
+    test = pkgregex.split(text)
+    lines=splitlines.split(text)
+    ?test
+    for each str in lines
+            ?str.Trim().Replace(chr(34), "") 'trim whitespace and quotes
+    end for
+
     port = CreateObject("roMessagePort")
     request = CreateObject("roUrlTransfer")
     request.SetMessagePort(port)

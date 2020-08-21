@@ -105,7 +105,7 @@ sub OnDetailsItemLoaded()
     lines=r.split(text)
     for each str in lines
         if Instr(1, str, "test") <> 0
-            ?str
+            ?str.Trim()
         end if
     end for
     m.video.theme = {
