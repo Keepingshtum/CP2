@@ -24,16 +24,17 @@ sub GetContent()
     '    end if
     'end if
 
-
-    'function to read from config file
-    'text=ReadAsciiFile("pkg:/test.txt")
-    'r = CreateObject("roRegex", "\n", "") ' split on newline
-    'lines=r.split(text)
+    'Reading config from file
+    'text=ReadAsciiFile("pkg:/configs/videoview.txt")
+    'splitlines = CreateObject("roRegex", "\n", "") ' split on newline
+    'pkgregex = CreateObject("roRegex", "^pkg", "") 'check for package
+    'test = pkgregex.split(text)
+    'lines=splitlines.split(text)
+    '?test
     'for each str in lines
-    '    if Instr(1, str, "test") <> 0
-    '        ?str
-    '    end if
+    '        ?str.Trim().Replace(chr(34), "") 'trim whitespace and quotes
     'end for
+
 
     port = CreateObject("roMessagePort")
     request = CreateObject("roUrlTransfer")
@@ -261,3 +262,16 @@ function GetVideoUrl(mediaItem as Object) as String
 
     return url
 end function
+
+sub checkWatchlist()
+    text=ReadAsciiFile("pkg:/configs/watchlist.txt")
+    splitlines = CreateObject("roRegex", "\n", "") ' split on newline
+    lines=splitlines.split(text)
+    for each str in lines
+            ?str.Trim().Replace(chr(34), "") 'trim whitespace and quotes
+    end for
+end sub
+
+sub updateWatchlist()
+
+end sub

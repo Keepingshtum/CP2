@@ -101,19 +101,23 @@ sub OnDetailsItemLoaded()
     m.video.ObserveField("endcardItemSelected", "OnEndcardItemSelected")
     'function to read from config file
     text=ReadAsciiFile("pkg:/configs/videoview.txt")
-    r = CreateObject("roRegex", "\n", "") ' split on newline
-    lines=r.split(text)
+    splitlines = CreateObject("roRegex", "\n", "") ' split on newline
+    pkgregex = CreateObject("roRegex", "^pkg", "") 'check for package
+    test = pkgregex.split(text)
+    lines=splitlines.split(text)
+    '?test
+    param=""
     for each str in lines
-        if Instr(1, str, "test") <> 0
-            ?str.Trim()
-        end if
+            ?str.Trim().Replace(chr(34), "") 'trim whitespace and quotes
+            param=str.ToStr()
+            ?Type("test")
     end for
     m.video.theme = {
         OverhangVisible : "false"
-        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
-        bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
-        bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
-        bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
+        trickPlayBarFilledBarImageUri :  param
+        bufferingBarFilledBarImageUri : param
+        bufferingBarEmptyBarImageUri : param
+        bufferingBarTrackImageUri : param
         backgroundImageURI : "pkg:/images/logo.png"
         backgroundColor: "FF0000FF"
     }
