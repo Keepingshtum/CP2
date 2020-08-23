@@ -47,13 +47,13 @@ sub OnDetailsContentSet(event as Object)
         buttonsToCreate = []
 
         if details.content.TITLE = "Music"
-            buttonsToCreate.Push({ title: "Play Track", id: "playaudio" })
+            buttonsToCreate.Push({ title: "Play Track", id: "continueaudio" })
             btnsContent = CreateObject("roSGNode", "ContentNode")
             btnsContent.Update({ children: buttonsToCreate })
             details.buttons = btnsContent
 
-        'else if details.content.TITLE = "Podcasts"
-        '    refreshaudiobuttons
+        'else if details.content.TITLE = "podcasts"
+        '    buttonsToCreate.Push({ title: "Play Track", id: "continueaudio" })
         '    btnsContent = CreateObject("roSGNode", "ContentNode")
         '    btnsContent.Update({ children: buttonsToCreate })
         '    details.buttons = btnsContent
@@ -165,13 +165,22 @@ sub OnButtonSelected(event as Object)
     else if selectedButton.id = "playaudio"
         OnAudioDetailsItemLoaded()
         if m.audio <> invalid
-            ?m.audio
+            item.bookmarkPosition = 0 ' Reset bookmark
             m.audio.control = "play"
             ' Show the Audio view
             m.top.ComponentController.callFunc("show", {
                 view: m.audio
             })
         end if
+    else if selectedButton.id = "continueaudio"
+        OnAudioDetailsItemLoaded()
+        if m.audio <> invalid
+            m.audio.control = "play"
+            ' Show the Audio view
+            m.top.ComponentController.callFunc("show", {
+                view: m.audio
+            })
+        end if    
     
     else if selectedButton.id ="More"
         OpenSearch(item.categories[0]) ' DOES NOT WORK FOR SERIES NODES RIGHT NOW. FIX THE FEED

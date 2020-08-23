@@ -140,6 +140,23 @@ function ParseJsonToNodeArray(jsonAA as Object) as Object
            resultNodeArray.children.Push(rowAA)
        end if
     end for
+     'For podcasts or longform audio content
+     for each fieldInJsonAA in jsonAA
+        if Instr(1, "podcasts", fieldInJsonAA) <> 0
+            mediaItemsArray = jsonAA[fieldInJsonAA]
+            itemsNodeArray = []
+            for each mediaItem in mediaItemsArray
+                itemNode = ParseMediaItemToNode(mediaItem, fieldInJsonAA)
+                itemsNodeArray.Push(itemNode)
+            end for
+            rowAA = {
+               title: "Podcasts"
+               children: itemsNodeArray
+            }
+
+           resultNodeArray.children.Push(rowAA)
+       end if
+    end for
 
 
     return resultNodeArray
