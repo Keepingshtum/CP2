@@ -440,5 +440,28 @@
         "duration": 171
       }
     }
-  ]
+  ],
+  "podcasts": [{
+      "id": "20001",
+      "title": "Dracula: Chapter One",
+      "releaseDate": "2015-06-11",
+      "shortDescription": "The first Chapter in Bram Stoker's Dracula.",
+      "thumbnail": "https://fremicro029.xirvik.com/downloads/Thumbnails/Dracula.jpg",
+      "genres": [
+        "thriller"
+      ],
+      "tags": [
+        "music"
+      ],
+      "content": {
+        "dateAdded": "2020-06-11T14:14:54.431Z",
+        "captions": [],
+        "videos": [
+          {
+            "url": "https://fremicro029.xirvik.com/downloads/Roku%20videos/dracula_01_stoker_64kb.mp3"
+          }
+        ],
+        "duration": 171
+      }
+    }]
 }
