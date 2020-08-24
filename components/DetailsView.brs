@@ -57,7 +57,7 @@ sub OnDetailsContentSet(event as Object)
 
         else if details.content.TITLE = "Podcasts"
             if item.bookmarkPosition > 0 
-                buttonsToCreate = [{ title: "Continue Watching", id: "continueaudio" }]
+                buttonsToCreate = [{ title: "Continue Listening", id: "continueaudio" }]
                 buttonsToCreate.Push({ title: "Play from the beginning", id: "playaudio" })
             else ' play button is always available
                 buttonsToCreate = [{ title: "Play title", id: "continueaudio" }]
@@ -172,9 +172,10 @@ sub OnButtonSelected(event as Object)
             ShowEpisodePickerView(details.currentItem.seasons)
         end if
     else if selectedButton.id = "playaudio"
+        item.bookmarkPosition = 0 ' Reset bookmark
+        ClearMediaPlayer() 'Clear Bookmarked Audio Scene
         OnAudioDetailsItemLoaded()
         if m.audio <> invalid
-            item.bookmarkPosition = 0 ' Reset bookmark
             m.audio.control = "play"
             ' Show the Audio view
             m.top.ComponentController.callFunc("show", {
