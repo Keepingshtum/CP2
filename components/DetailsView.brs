@@ -43,20 +43,29 @@ end function
 sub OnDetailsContentSet(event as Object)
     details = event.GetRoSGNode()
     currentItem = event.GetData()
+    item = details.content.GetChild(details.itemFocused)
+    ?details.content.TITLE
     if currentItem <> invalid
         buttonsToCreate = []
 
         if details.content.TITLE = "Music"
             buttonsToCreate.Push({ title: "Play Track", id: "continueaudio" })
+            buttonsToCreate.Push({ title: "More like this", id: "More" })
             btnsContent = CreateObject("roSGNode", "ContentNode")
             btnsContent.Update({ children: buttonsToCreate })
             details.buttons = btnsContent
 
-        'else if details.content.TITLE = "podcasts"
-        '    buttonsToCreate.Push({ title: "Play Track", id: "continueaudio" })
-        '    btnsContent = CreateObject("roSGNode", "ContentNode")
-        '    btnsContent.Update({ children: buttonsToCreate })
-        '    details.buttons = btnsContent
+        else if details.content.TITLE = "Podcasts"
+            if item.bookmarkPosition > 0 
+                buttonsToCreate = [{ title: "Continue Watching", id: "continueaudio" }]
+                buttonsToCreate.Push({ title: "Play from the beginning", id: "playaudio" })
+            else ' play button is always available
+                buttonsToCreate = [{ title: "Play title", id: "continueaudio" }]
+            end if
+            buttonsToCreate.Push({ title: "More like this", id: "More" })
+            btnsContent = CreateObject("roSGNode", "ContentNode")
+            btnsContent.Update({ children: buttonsToCreate })
+            details.buttons = btnsContent
 
         else if currentItem.url <> invalid and currentItem.url <> ""
             ?"Refresh buttons called from OnDetailsContentSet"
@@ -114,10 +123,10 @@ sub OnDetailsItemLoaded()
     end for
     m.video.theme = {
         OverhangVisible : "false"
-        trickPlayBarFilledBarImageUri :  param
-        bufferingBarFilledBarImageUri : param
-        bufferingBarEmptyBarImageUri : param
-        bufferingBarTrackImageUri : param
+        trickPlayBarFilledBarImageUri :  "pkg:/images/bar.9.png"
+        bufferingBarFilledBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarEmptyBarImageUri : "pkg:/images/bar.9.png"
+        bufferingBarTrackImageUri : "pkg:/images/bar.9.png"
         backgroundImageURI : "pkg:/images/logo.png"
         backgroundColor: "FF0000FF"
     }
@@ -139,8 +148,8 @@ sub OnButtonSelected(event as Object)
     details = event.GetRoSGNode()
     selectedButton = details.buttons.GetChild(event.GetData())
     item = details.content.GetChild(details.itemFocused)
-    ?item
-    ?item.categories[0]
+    '?item
+    '?item.categories[0]
     if selectedButton.id = "play"
          'OpenVideoView(details.content, details.itemFocused) '- Non Prebuffer way (Uncomment if you want to support older devices)
         item.bookmarkPosition = 0 ' Reset bookmark
@@ -210,11 +219,6 @@ sub RefreshButtons(details as Object)
         buttons.Push({ title: "Play from the beginning", id: "play" })
     else ' play button is always available
         buttons = [{ title: "Play title", id: "play" }]
-    end if
-    if item.Watchlist = "false"
-        buttons.Push({ title: "Add to watch list", id: "watch" })
-    else 
-        buttons.Push({ title: "Remove from watch list", id: "remove" })
     end if
     buttons.Push({ title: "More like this", id: "More" })
     btnsContent = CreateObject("roSGNode", "ContentNode")

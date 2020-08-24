@@ -185,6 +185,16 @@ function ParseMediaItemToNode(mediaItem as Object, mediaType as String) as Objec
             
         })
     end if
+
+    if mediaType = "podcasts"
+        Utils_forceSetFields(itemNode,{
+            "Url": GetVideoUrl(mediaItem)
+            streamFormat : "mp3"
+            length: mediaItem.content.duration
+            
+        })
+    end if
+
     ' Assign movie specific fields
     if mediaType = "movies" 'modify here if you add short form videos
         Utils_forceSetFields(itemNode, {
