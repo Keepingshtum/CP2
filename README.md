@@ -1,5 +1,7 @@
 This repository hosts the channel files for a sample Roku Channel.
 
+# Using the repository: Please Consult the Wiki! 
+
 Please Consult the [Wiki](https://github.com/Keepingshtum/CP2/wiki) for instructions on how to use this repository.
 
 # Project Goals
