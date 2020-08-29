@@ -28,6 +28,9 @@ This Was subdivided into the following goals:
 - The channel is usable without extra configuration, only the content needs to be loaded into the feed, and the auth keys need to be replaced.
 
 # What is left to do?
+
+Please have a look at [this page](https://github.com/Keepingshtum/CP2/wiki/What's-left-to-be-done) for a detailed explanation.
+
 - A few of the components don't look so great. The progress bar specifically was a crucial component that's pending.
 
 - Due to the rigid nature of Brightscript, a few features aren't so easily customisable, e.g Preloading/Non Preloading.
