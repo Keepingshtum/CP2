@@ -67,7 +67,7 @@ Sub Init()
     m.bottomRectangle = m.top.findNode("bottomRectangle")
     m.topRectangle = m.top.findNode("topRectangle")
     m.BGImage = m.top.findNode("BGImage")
-    m.BGImage.uri="pkg:/images/splash_fhd.jpg"
+    m.BGImage.uri="pkg:/images/endcardbg.jpg"
     m.overhangHeightTheme = invalid
     if m.LastThemeAttributes <> invalid then
         SGDEX_SetTheme(m.LastThemeAttributes)
