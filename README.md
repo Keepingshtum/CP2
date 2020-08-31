@@ -19,6 +19,7 @@ This Was subdivided into the following goals:
 
 
 # What is done?
+Please click [here](https://github.com/Keepingshtum/CP2/wiki/What's-done:-Implementations-and-Options) for a full list of features, and customisation details.
 - The basic UI functions are in place. 
 
 - The channel is able to handle all sorts of media (All major streaming formats like MP3, MP4, HLS, DASH etc, longform and shortform content.)
